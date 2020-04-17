@@ -6,7 +6,7 @@ Now it ready for Debian 9 system in virtual box containers.
 
 The shdeploy will deliver environment with next useful pachages ready for everyday developers need:
 
-- [x] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld
+- [x] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld, google-chrome
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
