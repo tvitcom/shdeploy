@@ -3,17 +3,17 @@
 <head>
 <meta charset=utf-8 />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
-<title>Network of shdeploy</title>
+<title>shdeploy</title>
 <!--script src="https://unpkg.com/@antirek/network-diagram@0.1.1/dist/code-full.min.js"></script-->
 <script src="./antirek_network-diagram@0.1.1_full.min.js"></script>
 </head>
 <body style="font:14px helvetica neue, helvetica, arial, sans-serif;">
 
 <h2>shdeploy diagram</h2>
-<div id="scheme" style="height:300px;width:800px;"></div>
+<div id="scheme" style="height:400px;width:800px;"></div>
 <div>
   <p>
-    After settings you will run <pre>sh deploy-server.sh</pre> or use local file-server for deployment.
+    After settings on developer host you will run <pre>sh deploy-server.sh</pre> or use local file-server for deployment.
   </p>
   <p>
       For start deployment on installed Debian system you will run:
@@ -28,8 +28,8 @@
 <script>
   const elements = {    
     nodes: [
-      { id: 'target-host', type: 'server', label: 'Target Debian'},
       { id: 'deploy-host', type: 'server', label: 'Deploy-Server'},
+      { id: 'target-host', type: 'server', label: 'Target Debian'},
       { id: 'developer', type: 'notebook', label: 'Developer'},
     ],
     edges: [
