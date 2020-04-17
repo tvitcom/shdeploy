@@ -31,7 +31,19 @@ if ! [ -d ~/delivered-conf ] || ! [ -f ~/delivered-conf/ssh/id_rsa.pub ];then
     exit 100
 fi
 
+## apt
+apt-get clean
+mv /etc/apt/sources.list /etc/apt/sources.list-original
+cp -f ~/delivered-conf/sources.list /etc/apt
+apt-get clean && apt-get update
+apt-get -y install ufw sudo curl # fix with absent curl
+
+
 ## ssh
+if ! [ -f /etc/ssh/sshd_config ];then
+	apt-get -y install openssh-server
+fi
+
 if ! [ -f /etc/ssh/sshd_config-original ];then
 	mv /etc/ssh/sshd_config /etc/ssh/sshd_config-original
 fi
@@ -51,13 +63,6 @@ service ssh restart
 cp -r ~/.ssh /home/$REGULAR_USER
 chmod 600 /home/$REGULAR_USER/.ssh
 chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
-
-## apt
-apt-get clean
-mv /etc/apt/sources.list /etc/apt/sources.list-original
-cp cp -f ~/delivered-conf/sources.list /etc/apt
-apt-get clean && apt-get update
-apt-get -y install ufw sudo curl # fix with absent curl
 
 # ufw
 ufw enable && ufw default deny && ufw allow 12222/tcp
