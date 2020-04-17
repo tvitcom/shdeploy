@@ -1,0 +1,6 @@
+## define
+PROJECT_DIR=$(basename $(pwd))
+CURR_DIR=$(pwd)"/"
+CONF_DIR=$CURR_DIR"pub/deb9/delivered-conf"
+REMOTE_DIR="/home/a/Go/src/my.localhost/funny/"$PROJECT_DIR"/"
+
