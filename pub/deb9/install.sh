@@ -160,7 +160,7 @@ a2enmod ssl rewrite deflate headers expires
 cp /etc/hosts /etc/hosts-original
 cat ~/delivered-conf/_hosts >> /etc/hosts
 mv /var/www /var/www.original
-mkdir -p -m 777 /home/www/pma
+mkdir -p -m 777 /var/www/pma
 tar xzf ~/delivered-conf/pma-approot.tar.gz
 mv approot /var/www/pma/approot
 chmod 0777 /var/www
