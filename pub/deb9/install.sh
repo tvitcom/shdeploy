@@ -77,7 +77,7 @@ chmod 0766 /home/$REGULAR_USER/.vimrc
 cp -f ~/delivered-conf/.vimrc /root
 chmod 0766 /root/.vimrc
 cp -rf ~/delivered-conf/.vim /root
-cp -rf ~/delivered-conf/.vim /home/$FOR_USER
+cp -rf ~/delivered-conf/.vim /home/$REGULAR_USER
 chmod 0766 /home/$REGULAR_USER/.vim
 
 apt-get -y install p7zip-full curl
