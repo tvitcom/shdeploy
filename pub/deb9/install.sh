@@ -71,7 +71,7 @@ ufw enable && ufw default deny && ufw allow 12222/tcp
 # sudo
 usermod -aG sudo $REGULAR_USER
 echo $REGULAR_USER"	ALL=(ALL:ALL)	ALL" >> /etc/sudoers
-chmod 0750 /home/$REGULAR_USER
+chmod 750 /home/$REGULAR_USER
 
 ## common soft
 mv /root/.bashrc /root/.bashrc-original
@@ -79,13 +79,13 @@ cp ~/delivered-conf/.bashrc /root
 chmod 644 /root/.bashrc
 apt-get -y install vim
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
-chmod 0766 /home/$REGULAR_USER/.vimrc
+chmod 766 /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 cp -f ~/delivered-conf/.vimrc /root
-chmod 0766 /root/.vimrc
+chmod 766 /root/.vimrc
 cp -rf ~/delivered-conf/.vim /root
 cp -rf ~/delivered-conf/.vim /home/$REGULAR_USER
-chmod 0766 /home/$REGULAR_USER/.vim
+chmod 766 /home/$REGULAR_USER/.vim
 
 apt-get -y install p7zip-full curl
 apt-get -y install apt-transport-https 
@@ -127,7 +127,9 @@ git config --global alias.bl blame
 git config --global alias.l "log --oneline --graph"
 git config --global alias.last 'log -1 HEAD'
 
-mv /home/$REGULAR_USER/.bash_aliases /home/$REGULAR_USER/.bash_aliases-original
+if [ -f /home/$REGULAR_USER/.bash_aliases ];then
+	mv /home/$REGULAR_USER/.bash_aliases /home/$REGULAR_USER/.bash_aliases-original
+fi
 if [ -f /root/.bash_aliases ];then
 	mv /root/.bash_aliases /root/.bash_aliases-original
 fi
@@ -184,8 +186,8 @@ mv /var/www /var/www.original
 mkdir -p -m 777 /var/www/pma
 tar xzf ~/delivered-conf/pma-approot.tar.gz
 mv approot /var/www/pma/approot
-chmod 0777 /var/www
-chmod 0766 /var/www/pma/approot/config.inc.php
+chmod 777 /var/www
+chmod 644 /var/www/pma/approot/config.inc.php
 
 mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf-original
 mv ~/delivered-conf/apache2.conf /etc/apache2
@@ -218,7 +220,7 @@ mv ~/delivered-conf/50-server.cnf /etc/mysql/mariadb.conf.d
 chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 chown root:root /etc/mysql/mariadb.conf.d/50-server.cnf
 
-mysql -u root -p mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"$MYSQL_PASS"';
+mysql -u root l -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"$MYSQL_PASS"';
 UPDATE user SET plugin='mysql_native_password' WHERE User='root';FLUSH PRIVILEGES;
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -226,8 +228,8 @@ DROP DATABASE IF EXISTS test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
 FLUSH PRIVILEGES;"
 
+mysql -u root -e "update user set plugin='' where User='root'; flush privileges; \q";
 service mysql restart
-mysql -u root -p mysql -e "update user set plugin='' where User='root'; flush privileges; \q";
 
 ## golang
 mkdir -m 777 -p /home/$REGULAR_USER/Go/src/my.localhost/funny/
@@ -251,8 +253,8 @@ echo 'XDG_CONFIG_HOME=$HOME/.config' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'XDG_DATA_HOME=$HOME/.local/share' >> "/home/"$REGULAR_USER"/.bashrc"
 
 mv go "/home/"$REGULAR_USER"/go"$GOLANG_VER
-chmod -R 0777 /home/$REGULAR_USER/Go
-chmod -R 0777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
+chmod -R 777 /home/$REGULAR_USER/Go
+chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 
 ## nodejs
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
