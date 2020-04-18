@@ -6,6 +6,7 @@
 ## configuration
 SET_HOSTNAME="testdeb9"
 REGULAR_USER="a"
+MYSQL_PASS="L;bycs_"$SET_HOSTNAME
 GOLANG_VER="1.13.9"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.10.100:3000/"
 REMOTE_DEPLOY_PATH="deb9/"
@@ -79,6 +80,7 @@ chmod 644 /root/.bashrc
 apt-get -y install vim
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
 chmod 0766 /home/$REGULAR_USER/.vimrc
+chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 cp -f ~/delivered-conf/.vimrc /root
 chmod 0766 /root/.vimrc
 cp -rf ~/delivered-conf/.vim /root
@@ -99,7 +101,7 @@ apt-get -y install meld mysql-workbench filezilla chromium
 
 ## google-chrom
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt install ./google-chrome-stable_current_amd64.deb
+apt-get install ./google-chrome-stable_current_amd64.deb
 
 ## command developer soft
 apt-get -y install gcc make linux-headers-amd64
@@ -107,7 +109,7 @@ apt-get -y install exuberant-ctags
 apt-get -y install sqlite3 libsqlite3-dev subversion
 
 ## Install and configure git
-apt-get install dirmngr --install-recommends
+apt-get install -y dirmngr --install-recommends
 apt-get install -y python-software-properties
 apt-get install -y software-properties-common
 apt-get install -y git-core git-svn tig
@@ -139,7 +141,8 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 ## virtual box additional
 apt-get upgrade
 apt-get -y install build-essential module-assistant dkms
-if [ ls /media/sdrom0 | grep VBoxLinuxAdditions.run ];then
+
+if [ blkid | grep VBOXADDITIONS] && [ mount -t iso9660 /dev/sr0 /media/cdrom0 ] && [ ls /media/sdrom0 | grep VBoxLinuxAdditions.run ];then
 	sh /media/cdrom0/VBoxLinuxAdditions.run
 fi
 if [ cat /etc/group | grep vboxsf ];then
@@ -166,6 +169,17 @@ mv approot /var/www/pma/approot
 chmod 0777 /var/www
 chmod 0766 /var/www/pma/approot/config.inc.php
 
+mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf-original
+mv ~/delivered-conf/apache2.conf /etc/apache2
+chmod 644 /etc/apache2/apache2.conf
+chown root:root /etc/apache2/apache2.conf
+mv /etc/apache2/sites-available /etc/apache2/sites-available-original
+mv ~/delivered-conf/sites-available /etc/apache2
+chmod 755 /etc/apache2/sites-available
+chown root:root  /etc/apache2/sites-available
+chmod 644 /etc/apache2/sites-available/*.conf
+chown root:root  /etc/apache2/sites-available/*.conf
+
 mv /etc/php/7.0/apache2/php.ini /etc/php/7.0/apache2/php.ini-original
 mv /etc/php/7.0/cli/php.ini /etc/php/7.0/cli/php.ini-original
 cp -f ~/delivered-conf/php/7.0/apache2/php.ini /etc/php/7.0/apache2/
@@ -175,19 +189,10 @@ cp -f ~/delivered-conf/php/7.0/cli/php.ini /etc/php/7.0/cli/
 chmod 644 /etc/php/7.0/cli/php.ini
 chown root:root /etc/php/7.0/cli/php.ini
 
-mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf-original
-mv ~/delivered-conf/apache2.conf /etc/apache2
-chmod 644 /etc/apache2/apache2.conf
-chown root:root /etc/apache2/apache2.conf
-mv /etc/apache2/sites-available /etc/apache2/sites-available-original
-mv ~/delivered-conf/sites-available /etc/apache2
-chmod 755  /etc/apache2/sites-available
-chown root:root  /etc/apache2/sites-available
-
 a2ensite /etc/apache2/sites-available/pma.conf
 service apache2 restart
 
-apt -y install mariadb-server mariadb-client mariadb-common
+apt-get -y install mariadb-server mariadb-client mariadb-common
 
 ## mysqld
 mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf-original
@@ -195,16 +200,13 @@ mv ~/delivered-conf/50-server.cnf /etc/mysql/mariadb.conf.d
 chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 chown root:root /etc/mysql/mariadb.conf.d/50-server.cnf
 
-mysql_secure_installation <<EOF
-n
-L;bycs_$(hostname)
-L;bycs_$(hostname)
-y
-y
-y
-y
-y
-EOF
+mysql -u root -p mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"$MYSQL_PASS"';
+UPDATE user SET plugin='mysql_native_password' WHERE User='root';FLUSH PRIVILEGES;
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
+FLUSH PRIVILEGES;"
 
 service mysql restart
 mysql -u root -p mysql -e "update user set plugin='' where User='root'; flush privileges; \q";
@@ -236,11 +238,11 @@ chmod -R 0777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 
 ## nodejs
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
-apt update && apt-get install -y nodejs npm
+apt-get update && apt-get install -y nodejs npm
 
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-apt update && apt install --no-install-recommends yarn
+apt-get update && apt-get install --no-install-recommends yarn
 
 ## python3
 apt-get update && apt-get upgrade && apt-get -y install python3-venv
@@ -251,13 +253,13 @@ chmod 644 /home/$REGULAR_USER/.pyrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 
 ## JupiterNotebook
-apt -y install python3-pip python3-dev
+apt-get -y install python3-pip python3-dev
 
 ## docker and docker-compose
-apt install gnupg2
+apt-get -y install gnupg2
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-apt update && sudo apt -y install docker-ce
+apt-get update && sudo apt-get -y install docker-ce
 usermod -aG docker $REGULAR_USER
 
 curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
