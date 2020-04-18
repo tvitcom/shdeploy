@@ -219,15 +219,14 @@ mv ~/delivered-conf/50-server.cnf /etc/mysql/mariadb.conf.d
 chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 chown root:root /etc/mysql/mariadb.conf.d/50-server.cnf
 
-mysql -u root l -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"$MYSQL_PASS"';
-UPDATE user SET plugin='mysql_native_password' WHERE User='root';FLUSH PRIVILEGES;
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-DROP DATABASE IF EXISTS test;
-DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
-FLUSH PRIVILEGES;"
-
-mysql -u root -e "update user set plugin='' where User='root'; flush privileges; \q";
+mysql --user=root <<_EOF_
+  UPDATE mysql.user SET Password=PASSWORD('${MYSQL_PASS}') WHERE User='root';
+  DELETE FROM mysql.user WHERE User='';
+  DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+  DROP DATABASE IF EXISTS test;
+  DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+  FLUSH PRIVILEGES;
+_EOF_
 service mysql restart
 
 ## golang
