@@ -258,8 +258,8 @@ chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get update && apt-get install -y nodejs npm
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 apt-get update && apt-get install --no-install-recommends yarn
 
 ## python3
@@ -275,21 +275,28 @@ apt-get -y install python3-pip python3-dev
 
 ## docker and docker-compose
 apt-get -y install gnupg2
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-apt-get update && sudo apt-get -y install docker-ce
+apt-get update && apt-get -y install docker-ce
 usermod -aG docker $REGULAR_USER
 
 curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
-if [ docker --version | grep build ] && [ docker-compose --version | grep build ];then
+
+docker_installed() {
+	docker --version | grep build
+}
+docker_compose_installed() {
+	docker-compose --version | grep build
+}
+if [ docker_installed ] && [ docker_compose_installed ];then
 	echo "Docker-CE and Docker-compose installed: Ok!";
 if
 
 ## Kubernetis
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+mv ./kubectl /usr/local/bin/kubectl
 
 kubectl_ready() {
   kubectl version --client | grep "BuildDate" #> /dev/null 2>&1
