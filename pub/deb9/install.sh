@@ -110,7 +110,6 @@ apt-get -y install sqlite3 libsqlite3-dev subversion
 
 ## Install and configure git
 apt-get install -y dirmngr --install-recommends
-apt-get install -y python-software-properties
 apt-get install -y software-properties-common
 apt-get install -y git-core git-svn tig
 
@@ -174,7 +173,7 @@ apt-get -y install ca-certificates
 apt-get -y install apache2 libxml2-dev
 apt-get -y install php php-mysql libapache2-mod-php
 apt-get -y install php-mbstring php7.0-xdebug php-cgi
-apt-get -y install php7.0-curl php7.0-soap php7.0-gdsudo
+apt-get -y install php7.0-curl php7.0-soap
 apt-get -y install php-xml php-zip php-fpm php-gd php-memcache php-pgsql php-readline
 apt-get -y install php-intl php-bcmath php-mcrypt php-opcache
 phpenmod opcache mcrypt mbstring intl
