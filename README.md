@@ -2,11 +2,12 @@ shdeploy
 ========
 
 This application with golang simple web file-server for hosting text configuration files, bash scripts and other file for deploy linux environment for developers. Also in 'pub/deb9/' placed the preseed file for autonomous Debian9 amd64 installation with preconfigured passwords for root and mysql server. You may rename '_preseed' to 'preseed' then edit appropriate root and user passwords and use it. 
-Now it ready for Debian 9 system in virtual box containers.
+Now it ready for Debian 9 (and for Ubuntu 18 work done) system in virtual box containers.
 
 The shdeploy will deliver environment with next useful pachages ready for everyday developers need:
 
 - [x] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld, google-chrome
+- [X] sublime-text && sublime-merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version

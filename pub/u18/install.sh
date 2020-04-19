@@ -4,12 +4,12 @@
 ##
 
 ## configuration
-SET_HOSTNAME="testdeb9"
+SET_HOSTNAME="u18"
 REGULAR_USER="a"
 MYSQL_PASS="L;bycs_"$SET_HOSTNAME
 GOLANG_VER="1.13.9"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.10.100:3000/"
-REMOTE_DEPLOY_PATH="deb9/"
+REMOTE_DEPLOY_PATH="u18/"
 REMOTE_CONF="delivered-conf"
 REMOTE_CONF_FILE=$REMOTE_CONF".tar.gz"
 
@@ -97,6 +97,13 @@ apt-get -y install apt-transport-https
 
 ## Desktop developer soft
 apt-get -y install meld mysql-workbench filezilla chromium
+
+## sublime-text && sublime-merge
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt-get update
+sudo apt-get install sublime-text sublime-merge
 
 ## google-chrom
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
