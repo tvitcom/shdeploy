@@ -34,7 +34,7 @@ fi
 ## apt
 apt-get clean
 mv /etc/apt/sources.list /etc/apt/sources.list-original
-cp -f ~/delivered-conf/sources.list /etc/apt
+# cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get clean && apt-get update
 apt-get -y install ufw sudo curl # fix with absent curl
 
