@@ -20,7 +20,6 @@ if [ $(id -u) != "0" ];then
 fi
 
 ## init from /root only
-hostname $SET_HOSTNAME
 cd /root
 
 ## bootstrap of config
@@ -144,19 +143,19 @@ apt-get upgrade
 apt-get -y install build-essential module-assistant dkms
 
 is_vboxmounted() {
-  blkid | grep VBOXADDITIONS #> /dev/null 2>&1
+  blkid | grep VBOXADDITIONS > /dev/null 2>&1
 }
 
 mountvbox() {
-  mount -t iso9660 /dev/sr0 /media/cdrom0 #> /dev/null 2>&1
+  mount -t iso9660 /dev/sr0 /media/cdrom0 > /dev/null 2>&1
 }
 
 vboxaddition_installer_ready() {
-  	ls /media/sdrom0 | grep VBoxLinuxAdditions.run #> /dev/null 2>&1
+  	ls /media/sdrom0 | grep VBoxLinuxAdditions.run > /dev/null 2>&1
 }
 
 vboxaddition_installed() {
-	cat /etc/group | grep vboxsf
+	cat /etc/group | grep vboxsf > /dev/null 2>&1
 }
 
 if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
@@ -211,9 +210,8 @@ chown root:root /etc/php/7.0/cli/php.ini
 a2ensite /etc/apache2/sites-available/pma.conf
 service apache2 restart
 
-apt-get -y install mariadb-server mariadb-client mariadb-common
-
 ## mysqld
+apt-get -y install mariadb-server mariadb-client mariadb-common
 mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf-original
 mv ~/delivered-conf/50-server.cnf /etc/mysql/mariadb.conf.d
 chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -225,6 +223,7 @@ mysql --user=root <<_EOF_
   DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
   DROP DATABASE IF EXISTS test;
   DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+  UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root';
   FLUSH PRIVILEGES;
 _EOF_
 service mysql restart
@@ -291,7 +290,7 @@ docker_compose_installed() {
 }
 if [ docker_installed ] && [ docker_compose_installed ];then
 	echo "Docker-CE and Docker-compose installed: Ok!";
-if
+fi
 
 ## Kubernetis
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
@@ -299,7 +298,7 @@ chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 
 kubectl_ready() {
-  kubectl version --client | grep "BuildDate" #> /dev/null 2>&1
+  kubectl version --client | grep "BuildDate" > /dev/null 2>&1
 }
 
 if [ kubectl_ready ] ;then
