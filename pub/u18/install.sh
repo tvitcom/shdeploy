@@ -36,13 +36,10 @@ apt-get clean
 mv /etc/apt/sources.list /etc/apt/sources.list-original
 # cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get clean && apt-get update
-apt-get -y install ufw sudo curl # fix with absent curl
 
 
 ## ssh
-if ! [ -f /etc/ssh/sshd_config ];then
-	apt-get -y install openssh-server
-fi
+apt-get -y install openssh-server
 
 if ! [ -f /etc/ssh/sshd_config-original ];then
 	mv /etc/ssh/sshd_config /etc/ssh/sshd_config-original
@@ -65,18 +62,19 @@ chmod 600 /home/$REGULAR_USER/.ssh
 chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
 
 # ufw
+# apt-get -y install ufw
 ufw enable && ufw default deny && ufw allow 12222/tcp
 
-# sudo
-usermod -aG sudo $REGULAR_USER
-echo $REGULAR_USER"	ALL=(ALL:ALL)	ALL" >> /etc/sudoers
+# security
 chmod 750 /home/$REGULAR_USER
 
 ## common soft
 mv /root/.bashrc /root/.bashrc-original
-cp ~/delivered-conf/.bashrc /root
+cp ~/delivered-conf/.bashrc-root /root
 chmod 644 /root/.bashrc
-apt-get -y install vim
+mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
+cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
+chmod 644 /home/$REGULAR_USER/.bashrc
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
@@ -90,13 +88,13 @@ apt-get -y install p7zip-full curl
 apt-get -y install apt-transport-https 
 
 ## Install user soft
+apt-get -y install vim-gtk
 #apt-get -y purge smplayer lxmusic #mpv
 #apt-get -y install cryptsetup desktop-file-utils
-#apt-get -y install vim-gtk
 #apt-get -y install vlc thunderbird gparted audacity
 
 ## Desktop developer soft
-apt-get -y install meld mysql-workbench filezilla chromium
+apt-get -y install meld mysql-workbench filezilla
 
 ## sublime-text && sublime-merge
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -

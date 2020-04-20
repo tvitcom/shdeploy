@@ -35,7 +35,9 @@ fi
 apt-get clean
 mv /etc/apt/sources.list /etc/apt/sources.list-original
 cp -f ~/delivered-conf/sources.list /etc/apt
-apt-get clean && apt-get update
+apt-get -y purge bluez bluetooth
+apt-get -y purge popularity-contest
+apt-get clean && apt-get update && apt-get upgrade
 apt-get -y install ufw sudo curl # fix with absent curl
 
 
@@ -58,6 +60,12 @@ if [ -f ~/.ssh/authorized_keys ];then
 	cat ~/delivered-conf/ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 else
 	cat ~/delivered-conf/ssh/id_rsa.pub > ~/.ssh/authorized_keys
+fi
+# ssh key for user
+if [ -f /home/$REGULAR_USER/.ssh/authorized_keys ];then
+	cat ~/delivered-conf/ssh/id_rsa.pub >> /home/$REGULAR_USER/.ssh/authorized_keys
+else
+	cat ~/delivered-conf/ssh/id_rsa.pub > /home/$REGULAR_USER/.ssh/authorized_keys
 fi
 service ssh restart
 cp -r ~/.ssh /home/$REGULAR_USER
