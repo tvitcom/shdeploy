@@ -84,7 +84,7 @@ apt-get -y install apt-transport-https
 if [ -f /root/.bashrc ];then
 	mv /root/.bashrc /root/.bashrc-original
 fi
-cp ~/delivered-conf/.bashrc-root /root
+cp ~/delivered-conf/.bashrc-root /root/.bashrc
 if [ -f /root/.bashrc ];then
 	chmod 644 /root/.bashrc
 fi
@@ -158,13 +158,13 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
 ## virtual box additional
 apt-get -y install build-essential module-assistant dkms
-
+VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
 is_vboxmounted() {
   blkid | grep VBOXADDITIONS > /dev/null 2>&1
 }
 
 mountvbox() {
-  mount -t iso9660 /dev/sr0 /media/cdrom0 > /dev/null 2>&1
+  mount -t iso9660 /dev/sr0 /media/$REGULAR_USER/$VBOXPATH > /dev/null 2>&1
 }
 
 vboxaddition_installer_ready() {
@@ -177,16 +177,16 @@ vboxaddition_installed() {
 
 if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
 	sh /media/$REGULAR_USER/VBox*.run
-	echo "VBoxLinuxAdditions.run succesfully start: OK!"
+	echo "VBoxLinuxAdditions.run succesfully!"
 fi
 if [ vboxaddition_installed ];then
 	adduser $REGULAR_USER vboxsf
 	echo "Group vboxsf added for user: OK!"
+else
+	echo "VBoxLinuxAddition if failed"
 fi
 
 ## lamp
-# apt-get -y install tasksel
-# tasksel -y install lamp-server
 sudo apt-get -y install gcc make autoconf libc-dev pkg-config
 
 apt-get -y install openssl libssl-dev
@@ -363,10 +363,6 @@ sudo apt-get -y install apt-transport-https ca-certificates gnupg
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 #OR: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get -y install google-cloud-sdk
-
-## TODO:tenzorflow
-
-## TODO:dlib
 
 ## finalise
 apt-get -y install -f && apt-get clean && apt-get -y autoremove

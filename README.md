@@ -13,7 +13,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
 - [x] VirtualBox Additional some sharing settings
-- [x] Python3 and venv
+- [x] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
 - [x] google cloud sdk
@@ -27,7 +27,7 @@ Also to Ubuntu 16 environment with next useful packages for everyday developers 
 - [x] Golang 1.13 environment
 - [ ] NodeJS and NPM of nodejs 12.x version
 - [ ] VirtualBox Additional some sharing settings
-- [ ] Python3 and venv
+- [ ] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
 - [x] google cloud sdk

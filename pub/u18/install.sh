@@ -46,7 +46,7 @@ cp ~/delivered-conf/sshd_config /etc/ssh/
 chmod 644 /etc/ssh/sshd_config
 
 if ! [ -d /root/.ssh ];then
-	mkdir -m 600 /root/.ssh
+	mkdir -m 644 /root/.ssh
 fi
 
 if [ -f ~/.ssh/authorized_keys ];then
@@ -56,8 +56,8 @@ else
 fi
 service ssh restart
 cp -r ~/.ssh /home/$REGULAR_USER
-chmod 600 /home/$REGULAR_USER/.ssh
-chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
+chown -R "$REGULAR_USER":"$REGULAR_USER" /home/$REGULAR_USER/.ssh
+chmod 644 /home/$REGULAR_USER/.ssh
 
 # ufw
 # apt-get -y install ufw
@@ -177,16 +177,16 @@ vboxaddition_installed() {
 
 if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
 	sh /media/$REGULAR_USER/VBox*.run
-	echo "VBoxLinuxAdditions.run succesfully start: OK!"
+	echo "VBoxLinuxAdditions.run succesfully!"
 fi
 if [ vboxaddition_installed ];then
 	adduser $REGULAR_USER vboxsf
 	echo "Group vboxsf added for user: OK!"
+else
+	echo "VBoxLinuxAddition if failed"
 fi
 
 ## lamp
-# apt-get -y install tasksel
-# tasksel -y install lamp-server
 sudo apt-get -y install gcc make autoconf libc-dev pkg-config
 
 apt-get -y install openssl libssl-dev
@@ -363,10 +363,6 @@ sudo apt-get -y install apt-transport-https ca-certificates gnupg
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 #OR: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get -y install google-cloud-sdk
-
-## TODO:tenzorflow
-
-## TODO:dlib
 
 ## finalise
 apt-get -y install -f && apt-get clean && apt-get -y autoremove
