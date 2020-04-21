@@ -4,9 +4,8 @@
 ##
 
 ## configuration
-SET_HOSTNAME="u16"
 REGULAR_USER="a"
-MYSQL_PASS="L;bycs_"$SET_HOSTNAME
+MYSQL_PASS="L;bycs_"$(hostname)
 GOLANG_VER="1.13.9"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.10.100:3000/"
 REMOTE_DEPLOY_PATH="u16/"
@@ -33,8 +32,8 @@ fi
 
 ## apt
 apt-get clean
-mv /etc/apt/sources.list /etc/apt/sources.list-original
-cp -f ~/delivered-conf/sources.list /etc/apt
+# mv /etc/apt/sources.list /etc/apt/sources.list-original
+# cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get clean && apt-get update
 
 ## ssh
@@ -67,8 +66,8 @@ ufw enable && ufw default deny && ufw allow 12222/tcp
 # security
 apt-get -y purge ^vino
 apt-get -y purge ^zeitgeist
-apt-get -y remove xul-ext-ubufox deja-dup
-apt-get -y remove aisleriot gnome-sudoku
+apt-get -y purge xul-ext-ubufox deja-dup
+apt-get -y purge aisleriot gnome-sudoku
 apt-get -y purge ^remmina
 apt-get -y purge webbrowser-app
 apt-get -y purge ^rhythmbox
@@ -110,14 +109,14 @@ apt-get -y install meld mysql-workbench filezilla
 
 ## sublime-text && sublime-merge
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-sudo apt-get install apt-transport-https
+sudo apt-get -y install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 sudo apt-get update
 sudo apt-get -y install sublime-text sublime-merge
 
 ## google-chrom
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt-get install -y ./google-chrome-stable_current_amd64.deb
+apt-get -y install ./google-chrome-stable_current_amd64.deb
 
 ## command developer soft
 apt-get -y install gcc make linux-headers-$(uname -r)
@@ -250,6 +249,7 @@ mysql --user=root <<_EOF_
   FLUSH PRIVILEGES;
 _EOF_
 service mysql restart
+apt-get clean
 
 ## golang
 mkdir -m 777 -p /home/$REGULAR_USER/Go/src/my.localhost/funny/
@@ -297,6 +297,7 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 
 ## docker and docker-compose
 sudo apt-get remove docker docker-engine docker.io containerd runc
+
 # sudo apt-get install \
 #     apt-transport-https \
 #     ca-certificates \
@@ -354,10 +355,10 @@ fi
 
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 #OR: echo "deb https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-sudo apt-get install apt-transport-https ca-certificates gnupg
+sudo apt-get -y install apt-transport-https ca-certificates gnupg
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 #OR: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt-get update && sudo apt-get install google-cloud-sdk
+sudo apt-get update && sudo apt-get -y install google-cloud-sdk
 
 ## TODO:tenzorflow
 
@@ -365,9 +366,8 @@ sudo apt-get update && sudo apt-get install google-cloud-sdk
 
 ## finalise
 apt-get -y install -f && apt-get clean && apt-get -y autoremove
-. /root/.bashrc
 sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
 rm /root/$REMOTE_CONF_FILE
 rm -rf /root/$REMOTE_CONF
-echo "DEPLOYED: Ok!"
+reboot now
