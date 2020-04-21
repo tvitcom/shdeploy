@@ -81,9 +81,13 @@ apt-get -y install p7zip-full curl
 apt-get -y install apt-transport-https 
 
 # configs
-mv /root/.bashrc /root/.bashrc-original
+if [ -f /root/.bashrc ];then
+	mv /root/.bashrc /root/.bashrc-original
+fi
 cp ~/delivered-conf/.bashrc-root /root
-chmod 644 /root/.bashrc
+if [ -f /root/.bashrc ];then
+	chmod 644 /root/.bashrc
+fi
 mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
 cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
 chmod 644 /home/$REGULAR_USER/.bashrc
@@ -103,8 +107,6 @@ apt-get -y install vim
 
 ## Desktop developer soft
 # some fix problem
-wget  http://archive.ubuntu.com/ubuntu/pool/main/libe/liberror-perl/liberror-perl_0.17025-1_all.deb 
-apt -y install ./liberror-perl_0.17025-1_all.deb 
 apt-get -y install meld mysql-workbench filezilla
 
 ## sublime-text && sublime-merge
@@ -174,7 +176,7 @@ vboxaddition_installed() {
 }
 
 if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
-	sh /media/cdrom0/VBox*.run
+	sh /media/$REGULAR_USER/VBox*.run
 	echo "VBoxLinuxAdditions.run succesfully start: OK!"
 fi
 if [ vboxaddition_installed ];then
@@ -234,10 +236,11 @@ apache2ctl restart
 
 ## mysqld
 apt-get -y install mariadb-server mariadb-client mariadb-common
-mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf_original
-cp -f my.cnf /etc/alternatives/my.cnf
-chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
-chown root:root /etc/mysql/mariadb.conf.d/50-server.cnf
+mkdir /etc/mysql/mysql.conf.d
+mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf-original
+cp -f ~/delivered-conf/my.cnf /etc/alternatives/my.cnf
+chmod 644 /etc/alternatives/my.cnf
+chown root:root /etc/alternatives/my.cnf
 
 mysql --user=root <<_EOF_
   UPDATE mysql.user SET Password=PASSWORD('${MYSQL_PASS}') WHERE User='root';
@@ -317,7 +320,8 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 usermod -aG docker $REGULAR_USER
-chown $REGULAR_USER:$REGULAR_USER /home/"$USER"/.docker -R
+mkdir /home/$REGULAR_USER/.docker
+chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.docker -R
 chmod g+rwx "/home/"$REGULAR_USER"/.docker" -R
 
 curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose

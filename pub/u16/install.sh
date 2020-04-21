@@ -176,7 +176,7 @@ vboxaddition_installed() {
 }
 
 if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
-	sh /media/cdrom0/VBox*.run
+	sh /media/$REGULAR_USER/VBox*.run
 	echo "VBoxLinuxAdditions.run succesfully start: OK!"
 fi
 if [ vboxaddition_installed ];then
@@ -236,6 +236,7 @@ apache2ctl restart
 
 ## mysqld
 apt-get -y install mariadb-server mariadb-client mariadb-common
+mkdir /etc/mysql/mysql.conf.d
 mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf-original
 cp -f ~/delivered-conf/my.cnf /etc/alternatives/my.cnf
 chmod 644 /etc/alternatives/my.cnf
