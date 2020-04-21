@@ -85,7 +85,9 @@ if [ -f /root/.bashrc ];then
 	mv /root/.bashrc /root/.bashrc-original
 fi
 cp ~/delivered-conf/.bashrc-root /root
-chmod 644 /root/.bashrc
+if [ -f /root/.bashrc ];then
+	chmod 644 /root/.bashrc
+fi
 mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
 cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
 chmod 644 /home/$REGULAR_USER/.bashrc
@@ -234,10 +236,10 @@ apache2ctl restart
 
 ## mysqld
 apt-get -y install mariadb-server mariadb-client mariadb-common
-mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf_original
-cp -f my.cnf /etc/alternatives/my.cnf
-chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
-chown root:root /etc/mysql/mariadb.conf.d/50-server.cnf
+mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf-original
+cp -f ~/delivered-conf/my.cnf /etc/alternatives/my.cnf
+chmod 644 /etc/alternatives/my.cnf
+chown root:root /etc/alternatives/my.cnf
 
 mysql --user=root <<_EOF_
   UPDATE mysql.user SET Password=PASSWORD('${MYSQL_PASS}') WHERE User='root';
@@ -317,6 +319,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 usermod -aG docker $REGULAR_USER
+mkdir /home/$REGULAR_USER/.docker
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.docker -R
 chmod g+rwx "/home/"$REGULAR_USER"/.docker" -R
 

@@ -97,3 +97,7 @@ fi
 #if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 #    . /etc/bash_completion
 #fi
+
+#### settings for python in console:--------
+export PYTHONSTARTUP="${HOME}/.pyrc"
+export PYTHONIOENCODING="UTF-8"
