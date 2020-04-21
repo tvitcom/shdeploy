@@ -370,4 +370,4 @@ sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
 rm /root/$REMOTE_CONF_FILE
 rm -rf /root/$REMOTE_CONF
-reboot now
+echo "Deploy developers software is ready: Ok!"

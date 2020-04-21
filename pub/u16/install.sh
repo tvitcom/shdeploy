@@ -81,7 +81,9 @@ apt-get -y install p7zip-full curl
 apt-get -y install apt-transport-https 
 
 # configs
-mv /root/.bashrc /root/.bashrc-original
+if [ -f /root/.bashrc ];then
+	mv /root/.bashrc /root/.bashrc-original
+fi
 cp ~/delivered-conf/.bashrc-root /root
 chmod 644 /root/.bashrc
 mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
@@ -103,8 +105,6 @@ apt-get -y install vim
 
 ## Desktop developer soft
 # some fix problem
-wget  http://archive.ubuntu.com/ubuntu/pool/main/libe/liberror-perl/liberror-perl_0.17025-1_all.deb 
-apt -y install ./liberror-perl_0.17025-1_all.deb 
 apt-get -y install meld mysql-workbench filezilla
 
 ## sublime-text && sublime-merge
@@ -317,7 +317,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 usermod -aG docker $REGULAR_USER
-chown $REGULAR_USER:$REGULAR_USER /home/"$USER"/.docker -R
+chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.docker -R
 chmod g+rwx "/home/"$REGULAR_USER"/.docker" -R
 
 curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -370,4 +370,4 @@ sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
 rm /root/$REMOTE_CONF_FILE
 rm -rf /root/$REMOTE_CONF
-reboot now
+echo "Deploy developers software is ready: Ok!"
