@@ -289,9 +289,9 @@ apt-get -y install python3-pip python3-dev
 
 ## docker and docker-compose
 apt-get -y install gnupg2
-curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-apt-get update && apt-get -y install docker-ce
+# curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+# add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt-get update && apt-get -y install docker.io
 usermod -aG docker $REGULAR_USER
 
 curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -322,6 +322,8 @@ fi
 
 # google cloud sdk
 # wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
+# tar czf google-cloud-sdk-289.0.0-linux-x86_64.tar.gz $$ rm google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
+# cd google-cloud-sdk-289.0.0-linux-x86_64
 # ./google-cloud-sdk/install.sh
 # ./google-cloud-sdk/bin/gcloud init
 
@@ -337,6 +339,7 @@ apt-get update && apt-get install google-cloud-sdk
 ## TODO:dlib
 
 ## finalise
+apt-get -y install -f && apt-get -y autoremove && apt-get clean
 . /root/.bashrc
 rm /root/$REMOTE_CONF_FILE
 rm -rf /root/$REMOTE_CONF
