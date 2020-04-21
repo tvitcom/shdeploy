@@ -14,6 +14,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Python3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
+- [ ] google cloud sdk
 - [ ] tenzorflow 
 - [ ] dlib
 
@@ -27,6 +28,7 @@ Also to Ubuntu 16 environment with next useful packages for everyday developers 
 - [ ] Python3 and venv
 - [ ] Docker, Docker-Compose
 - [ ] Kubernetis (kubectl)
+- [ ] google cloud sdk
 - [ ] tenzorflow 
 - [ ] dlib
 

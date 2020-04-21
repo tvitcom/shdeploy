@@ -66,6 +66,7 @@ chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
 ufw enable && ufw default deny && ufw allow 12222/tcp
 
 # security
+sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 chmod 750 /home/$REGULAR_USER
 
 ## common soft
@@ -309,6 +310,11 @@ kubectl_ready() {
 if [ kubectl_ready ] ;then
 	echo "kubectl installed: Ok!"
 fi
+
+# google cloud sdk
+wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
+./google-cloud-sdk/bin/gcloud init
 
 ## TODO:tenzorflow
 

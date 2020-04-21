@@ -320,6 +320,11 @@ if [ kubectl_ready ] ;then
 	echo "kubectl installed: Ok!"
 fi
 
+# google cloud sdk
+wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
+./google-cloud-sdk/bin/gcloud init
+
 ## TODO:tenzorflow
 
 ## TODO:dlib
