@@ -46,7 +46,7 @@ cp ~/delivered-conf/sshd_config /etc/ssh/
 chmod 644 /etc/ssh/sshd_config
 
 if ! [ -d /root/.ssh ];then
-	mkdir -m 600 /root/.ssh
+	mkdir -m 644 /root/.ssh
 fi
 
 if [ -f ~/.ssh/authorized_keys ];then
@@ -56,8 +56,8 @@ else
 fi
 service ssh restart
 cp -r ~/.ssh /home/$REGULAR_USER
-chmod 600 /home/$REGULAR_USER/.ssh
-chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
+chown -R "$REGULAR_USER":"$REGULAR_USER" /home/$REGULAR_USER/.ssh
+chmod 644 /home/$REGULAR_USER/.ssh
 
 # ufw
 # apt-get -y install ufw

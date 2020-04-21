@@ -5,8 +5,10 @@ This application with golang simple web file-server for hosting text configurati
 Now it ready for Debian 9 (and for Ubuntu 16 and Ubuntu 18 coming soon) system in virtual box containers. 
 
 to Debian 9 environment with next useful packages for everyday developers need: 
-- [x] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld, google-chrome
-- [X] sublime-text && sublime-merge - awesome tools:)
+- [x] SSH server (on port 12222)
+- [x] Common: Git, Svn
+- [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
+- [X] Sublime-Text && Sublime-Merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
@@ -14,23 +16,21 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Python3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
-- [ ] google cloud sdk
-- [ ] tenzorflow 
-- [ ] dlib
+- [x] google cloud sdk
 
 Also to Ubuntu 16 environment with next useful packages for everyday developers need: 
-- [ ] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld, google-chrome
-- [ ] sublime-text && sublime-merge - awesome tools:)
-- [ ] LAMP stack with PhpMyAdmin
+- [x] SSH server (on port 12222)
+- [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
+- [x] Common: Git, Svn
+- [x] sublime-text && sublime-merge - awesome tools:)
+- [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [ ] NodeJS and NPM of nodejs 12.x version
 - [ ] VirtualBox Additional some sharing settings
 - [ ] Python3 and venv
-- [ ] Docker, Docker-Compose
-- [ ] Kubernetis (kubectl)
-- [ ] google cloud sdk
-- [ ] tenzorflow 
-- [ ] dlib
+- [x] Docker, Docker-Compose
+- [x] Kubernetis (kubectl)
+- [x] google cloud sdk
 
 For use it you will set variables in the:
 
@@ -68,4 +68,4 @@ wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
 
 NOTICE: 
 -------
-i. For VBoxLinuxAdditional you will mount the disk and set fs-folders before deployment process.
+i. For VBoxLinuxAdditional you will mount the disk and install before the deployment process.
