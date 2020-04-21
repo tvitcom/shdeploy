@@ -35,8 +35,7 @@ fi
 apt-get clean
 mv /etc/apt/sources.list /etc/apt/sources.list-original
 # cp -f ~/delivered-conf/sources.list /etc/apt
-apt-get clean && apt-get update
-
+apt-get clean && apt-get update && apt-get -y upgrade
 
 ## ssh
 apt-get -y install openssh-server
@@ -66,10 +65,24 @@ chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
 ufw enable && ufw default deny && ufw allow 12222/tcp
 
 # security
+apt-get -y purge ^vino
+apt-get -y purge ^zeitgeist
+apt-get -y remove xul-ext-ubufox deja-dup
+apt-get -y remove aisleriot gnome-sudoku
+apt-get -y purge ^remmina
+apt-get -y purge webbrowser-app
+apt-get -y purge ^rhythmbox
+apt-get -y purge unity-scope-gdrive
+apt-get -y purge unity-lens-photos
+apt-get -y autoremove
 sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 chmod 750 /home/$REGULAR_USER
 
 ## common soft
+apt-get -y install p7zip-full curl
+apt-get -y install apt-transport-https 
+
+# configs
 mv /root/.bashrc /root/.bashrc-original
 cp ~/delivered-conf/.bashrc-root /root
 chmod 644 /root/.bashrc
@@ -85,16 +98,15 @@ cp -rf ~/delivered-conf/.vim /root
 cp -rf ~/delivered-conf/.vim /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vim
 
-apt-get -y install p7zip-full curl
-apt-get -y install apt-transport-https 
-
 ## Install user soft
-apt-get -y install vim-gtk
+apt-get -y install vim
 #apt-get -y purge smplayer lxmusic #mpv
-#apt-get -y install cryptsetup desktop-file-utils
 #apt-get -y install vlc thunderbird gparted audacity
 
 ## Desktop developer soft
+# some fix problem
+wget  http://archive.ubuntu.com/ubuntu/pool/main/libe/liberror-perl/liberror-perl_0.17025-1_all.deb 
+apt -y install liberror-perl_0.17025-1_all.deb 
 apt-get -y install meld mysql-workbench filezilla
 
 ## sublime-text && sublime-merge
@@ -174,6 +186,12 @@ if [ vboxaddition_installed ];then
 fi
 
 ## lamp
+apt-get -y install tasksel
+sudo apt-get install gcc make autoconf libc-dev pkg-config
+tasksel install lamp-server
+apt-get install -y php-gd php7.0-sqlite php7.0-mcrypt php-xdebug php-pear
+
+apt-get -y install openssl libssl-dev
 apt-get -y install ca-certificates
 apt-get -y install apache2 libxml2-dev
 apt-get -y install php php-mysql libapache2-mod-php
@@ -181,6 +199,7 @@ apt-get -y install php-mbstring php7.0-xdebug php-cgi
 apt-get -y install php7.0-curl php7.0-soap
 apt-get -y install php-xml php-zip php-fpm php-gd php-memcache php-pgsql php-readline
 apt-get -y install php-intl php-bcmath php-mcrypt php-opcache
+apt-get -y install sqlite3 curl php-intl php-curl php-json php-mbstring
 phpenmod opcache mcrypt mbstring intl
 a2enmod ssl rewrite deflate headers expires
 
@@ -214,12 +233,12 @@ chmod 644 /etc/php/7.0/cli/php.ini
 chown root:root /etc/php/7.0/cli/php.ini
 
 a2ensite /etc/apache2/sites-available/pma.conf
-service apache2 restart
+apache2ctl restart
 
 ## mysqld
 apt-get -y install mariadb-server mariadb-client mariadb-common
-mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf-original
-mv ~/delivered-conf/50-server.cnf /etc/mysql/mariadb.conf.d
+mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf_original
+cp -f my.cnf /etc/alternatives/my.cnf
 chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 chown root:root /etc/mysql/mariadb.conf.d/50-server.cnf
 
