@@ -2,7 +2,7 @@ shdeploy
 ========
 
 This application with golang simple web file-server for hosting text configuration files, bash scripts and other file for deploy linux environment for developers. Also in 'pub/deb9/' placed the preseed file for autonomous Debian9 amd64 installation with preconfigured passwords for root and mysql server. You may rename '_preseed' to 'preseed' then edit appropriate root and user passwords and use it. 
-Now it ready for Debian 9 (and for Ubuntu 18 coming soon) system in virtual box containers. 
+Now it ready for Debian 9 (and for Ubuntu 16 coming soon) system in virtual box containers. 
 
 to Debian 9 environment with next useful packages for everyday developers need: 
 - [x] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld, google-chrome
@@ -17,7 +17,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [ ] tenzorflow 
 - [ ] dlib
 
-Also to Ubuntu 18 environment with next useful packages for everyday developers need: 
+Also to Ubuntu 16 environment with next useful packages for everyday developers need: 
 - [ ] Common: Git, Svn, 7z, sqlite3, mysql-workbench, meld, google-chrome
 - [ ] sublime-text && sublime-merge - awesome tools:)
 - [ ] LAMP stack with PhpMyAdmin
@@ -33,10 +33,10 @@ Also to Ubuntu 18 environment with next useful packages for everyday developers 
 For use it you will set variables in the:
 
  1) .REMOTE_CONFIG file
- 2) in header of pub/deb9/install.sh
+ 2) in header of pub/deb9/install.sh and in pub/u16/install.sh
  3) pub/deb/_preseed file and rename it as preseed for autoinstallation Debian 9 in VirtualBox
- 4) make own ssh rsa-key files and plase id_rsa.pub in pub/deb9/delivered-conf/ssh
- 5) set appropriate port without myown 12222 in pub/deb9/delivered-conf/sshd_config
+ 4) make own ssh rsa-key files and plase id_rsa.pub in pub/deb9/delivered-conf/ssh, pub/u16/delivered-conf/ssh
+ 5) set appropriate port without myown 12222 in pub/deb9/delivered-conf/sshd_config and pub/u16/delivered-conf/sshd_config
 
 On the web-server deployment host with golang environment:
 
@@ -49,12 +49,18 @@ On target server with installed curl in terminal you will run:
 
 ```bash
 su root
+# for Debian 9:
 curl http://192.168.10.100:3000/deb9/install.sh | sh
+# Or for Ubuntu 16:
+curl http://192.168.10.100:3000/u16/install.sh | sh
 ```
 
-Or without curl (for example deploy-host with 192.168.10.100):
+Or without curl use wget (for example deploy-host with 192.168.10.100):
 
 ```bash
+# For Debian 9:
+wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
+## OR for Ubuntu 16:
 wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
 ```
 

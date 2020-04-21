@@ -1,3 +1,6 @@
 /pub/deb9/preseed
 /pub/deb9/test.sh
 /pub/deb9/delivered-conf/ssh/id_rsa.pub
+/pub/u16/preseed
+/pub/u16/test.sh
+/pub/u16/delivered-conf/ssh/id_rsa.pub
