@@ -155,25 +155,25 @@ cp -f ~/delivered-conf/.bash_aliases /root
 chmod 644 /home/$REGULAR_USER/.bash_aliases
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
-## virtual box additional
-apt-get -y install build-essential module-assistant dkms
-VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
+## Itvis now unstable in  virtual box additional
+# apt-get -y install build-essential module-assistant dkms
+# VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
 
-vboxaddition_installed() {
-	cat /etc/group | grep vboxsf > /dev/null 2>&1
-}
+# vboxaddition_installed() {
+# 	cat /etc/group | grep vboxsf > /dev/null 2>&1
+# }
 
-if [ vboxaddition_installed ];then
-	usermod -aG vboxsf $REGULAR_USER
+# if [ vboxaddition_installed ];then
+# 	usermod -aG vboxsf $REGULAR_USER
 
-	# mount my directories
-	ln -s /media/sf_WWW /home/$REGULAR_USER/www
-	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
+# 	# mount my directories
+# 	ln -s /media/sf_WWW /home/$REGULAR_USER/www
+# 	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
 
-	echo "Group vboxsf added for user: OK!"
-else
-	echo "Group vboxsf for user: failed"
-fi
+# 	echo "Group vboxsf added for user: OK!"
+# else
+# 	echo "Group vboxsf for user: failed"
+# fi
 
 ## lamp
 sudo apt-get -y install gcc make autoconf libc-dev pkg-config

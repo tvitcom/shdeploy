@@ -155,26 +155,26 @@ cp -f ~/delivered-conf/.bash_aliases /root
 chmod 644 /home/$REGULAR_USER/.bash_aliases
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
-## virtual box additional
-apt-get -y install build-essential module-assistant dkms
-VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
+# It is now unstable ## virtual box additional
+# apt-get -y install build-essential module-assistant dkms
+# VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
 
-vboxaddition_installed() {
-	cat /etc/group | grep vboxsf > /dev/null 2>&1
-}
+# vboxaddition_installed() {
+# 	cat /etc/group | grep vboxsf > /dev/null 2>&1
+# }
 
-if [ "$VBOXPATH" -ne "" ];then
-	sh $VBOXPATH/*.run
-	if [ vboxaddition_installed ];then
-		usermod -aG vboxsf $REGULAR_USER
-	fi
-	# mount my directories
-	ln -s /media/sf_WWW /home/$REGULAR_USER/www
-	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
-	echo "Group vboxsf added for user: OK!"
-else
-	echo "Group vboxsf for user: failed"
-fi
+# if [ "$VBOXPATH" -ne "" ];then
+# 	sh $VBOXPATH/*.run
+# 	if [ vboxaddition_installed ];then
+# 		usermod -aG vboxsf $REGULAR_USER
+# 	fi
+# 	# mount my directories
+# 	ln -s /media/sf_WWW /home/$REGULAR_USER/www
+# 	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
+# 	echo "Group vboxsf added for user: OK!"
+# else
+# 	echo "Group vboxsf for user: failed"
+# fi
 
 ## lamp
 sudo apt-get -y install gcc make autoconf libc-dev pkg-config
@@ -184,7 +184,7 @@ apt-get -y install ca-certificates
 apt-get -y install apache2 libxml2-dev
 apt-get -y install php-dev libmcrypt-dev libapache2-mod-php
 apt-get -y install php-mbstring php-xdebug php-cgi
-apt-get -y install php-curl php-soap
+apt-get -y install php-curl php-soap php7.2-mysql
 apt-get -y install php7.2-sqlite php-xdebug php-pear
 apt-get -y install php-xml php-zip php-fpm php-gd php-memcache php-pgsql php-readline
 apt-get -y install php-intl php-bcmath php-mcrypt php-opcache

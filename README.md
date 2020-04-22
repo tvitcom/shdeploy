@@ -2,7 +2,7 @@ shdeploy
 ========
 
 This application with golang simple web file-server for hosting text configuration files, bash scripts and other file for deploy linux environment for developers. Also in 'pub/deb9/' placed the preseed file for autonomous Debian9 amd64 installation with preconfigured passwords for root and mysql server. You may rename '_preseed' to 'preseed' then edit appropriate root and user passwords and use it. 
-Now it ready for Debian 9, Ubuntu 16 and Ubuntu 18 systems in virtual box guest containers. 
+Now it ready for Debian 9, Ubuntu 16 and Ubuntu 18 systems. 
 
 to Debian 9 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
@@ -10,9 +10,9 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
 - [X] Sublime-Text && Sublime-Merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
+- [x] VirtualBox additional autoinstallation with inserted iso
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
-- [x] VirtualBox Guest linux additional support
 - [x] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
@@ -26,7 +26,6 @@ Also to Ubuntu 16/18 environment with next useful packages for everyday develope
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
-- [x] VirtualBox Guest linux additional support
 - [x] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
