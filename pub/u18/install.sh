@@ -84,7 +84,7 @@ apt-get -y install apt-transport-https
 if [ -f /root/.bashrc ];then
 	mv /root/.bashrc /root/.bashrc-original
 fi
-cp ~/delivered-conf/.bashrc-root /root
+cp ~/delivered-conf/.bashrc-root /root/.bashrc
 if [ -f /root/.bashrc ];then
 	chmod 644 /root/.bashrc
 fi
@@ -158,32 +158,17 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
 ## virtual box additional
 apt-get -y install build-essential module-assistant dkms
-
-is_vboxmounted() {
-  blkid | grep VBOXADDITIONS > /dev/null 2>&1
-}
-
-mountvbox() {
-  mount -t iso9660 /dev/sr0 /media/cdrom0 > /dev/null 2>&1
-}
-
-vboxaddition_installer_ready() {
-  	ls /media/$REGULAR_USER | grep  > /dev/null 2>&1
-}
+VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
 
 vboxaddition_installed() {
 	cat /etc/group | grep vboxsf > /dev/null 2>&1
 }
 
-if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
-	sh /media/$REGULAR_USER/VBox*.run
-	echo "VBoxLinuxAdditions.run succesfully!"
-fi
 if [ vboxaddition_installed ];then
-	adduser $REGULAR_USER vboxsf
+	usermod -aG vboxsf $REGULAR_USER
 	echo "Group vboxsf added for user: OK!"
 else
-	echo "VBoxLinuxAddition if failed"
+	echo "Group vboxsf for user: failed"
 fi
 
 ## lamp
@@ -281,7 +266,7 @@ chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 
 ## nodejs
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
-apt-get update && apt-get install -y nodejs npm
+apt-get update && apt-get install -y nodejs gcc g++ make
 
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list

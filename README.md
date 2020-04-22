@@ -12,7 +12,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
-- [x] VirtualBox Additional some sharing settings
+- [x] VirtualBox Guest linux additional support
 - [x] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
@@ -25,9 +25,9 @@ Also to Ubuntu 16 environment with next useful packages for everyday developers 
 - [x] sublime-text && sublime-merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
-- [ ] NodeJS and NPM of nodejs 12.x version
-- [ ] VirtualBox Additional some sharing settings
-- [ ] Python3, pip3 and venv
+- [x] NodeJS and NPM of nodejs 12.x version
+- [ ] VirtualBox Guest linux additional support
+- [x] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
 - [x] google cloud sdk
