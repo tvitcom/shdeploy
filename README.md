@@ -6,8 +6,9 @@ Now it ready for Debian 9, Ubuntu 16 and Ubuntu 18 systems.
 
 to Debian 9 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
-- [x] Common: Git, Svn
 - [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
+- [ ] Skype
+- [x] Git, Svn, Vim
 - [X] Sublime-Text && Sublime-Merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
 - [x] VirtualBox additional autoinstallation with inserted iso
@@ -21,7 +22,8 @@ to Debian 9 environment with next useful packages for everyday developers need:
 Also to Ubuntu 16/18 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
 - [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
-- [x] Common: Git, Svn
+- [x] Skype
+- [x] Git, Svn, Vim
 - [x] sublime-text && sublime-merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment

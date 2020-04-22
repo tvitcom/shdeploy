@@ -108,6 +108,10 @@ apt-get -y install vlc thunderbird #gparted audacity
 ## Desktop developer soft
 apt-get -y install meld mysql-workbench filezilla
 
+## skype 
+wget https://go.skype.com/skypeforlinux-64.deb
+dpkg -i skypeforlinux-64.deb
+
 ## sublime-text && sublime-merge
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 sudo apt-get -y install apt-transport-https
