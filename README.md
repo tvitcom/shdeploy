@@ -18,7 +18,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Kubernetis (kubectl)
 - [x] google cloud sdk
 
-Also to Ubuntu 16 environment with next useful packages for everyday developers need: 
+Also to Ubuntu 16/18 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
 - [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
 - [x] Common: Git, Svn

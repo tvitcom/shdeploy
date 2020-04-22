@@ -163,13 +163,14 @@ vboxaddition_installed() {
 	cat /etc/group | grep vboxsf > /dev/null 2>&1
 }
 
-if [ vboxaddition_installed ];then
-	usermod -aG vboxsf $REGULAR_USER
-
+if [ "$VBOXPATH" -ne "" ];then
+	sh $VBOXPATH/*.run
+	if [ vboxaddition_installed ];then
+		usermod -aG vboxsf $REGULAR_USER
+	fi
 	# mount my directories
 	ln -s /media/sf_WWW /home/$REGULAR_USER/www
 	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
-
 	echo "Group vboxsf added for user: OK!"
 else
 	echo "Group vboxsf for user: failed"
@@ -181,10 +182,10 @@ sudo apt-get -y install gcc make autoconf libc-dev pkg-config
 apt-get -y install openssl libssl-dev
 apt-get -y install ca-certificates
 apt-get -y install apache2 libxml2-dev
-apt-get -y install php php-mysql libapache2-mod-php
+apt-get -y install php-dev libmcrypt-dev libapache2-mod-php
 apt-get -y install php-mbstring php-xdebug php-cgi
-apt-get -y install php-curl php7.0-soap
-apt-get -y install php7.0-sqlite php7.0-mcrypt php-xdebug php-pear
+apt-get -y install php-curl php-soap
+apt-get -y install php7.2-sqlite php-xdebug php-pear
 apt-get -y install php-xml php-zip php-fpm php-gd php-memcache php-pgsql php-readline
 apt-get -y install php-intl php-bcmath php-mcrypt php-opcache
 apt-get -y install sqlite3 curl php-intl php-curl php-json
@@ -211,14 +212,14 @@ chown root:root  /etc/apache2/sites-available
 chmod 644 /etc/apache2/sites-available/*.conf
 chown root:root  /etc/apache2/sites-available/*.conf
 
-mv /etc/php/7.0/apache2/php.ini /etc/php/7.0/apache2/php.ini-original
-mv /etc/php/7.0/cli/php.ini /etc/php/7.0/cli/php.ini-original
-cp -f ~/delivered-conf/php/7.0/apache2/php.ini /etc/php/7.0/apache2/
-chmod 644 /etc/php/7.0/apache2/php.ini
-chown root:root /etc/php/7.0/apache2/php.ini
-cp -f ~/delivered-conf/php/7.0/cli/php.ini /etc/php/7.0/cli/
-chmod 644 /etc/php/7.0/cli/php.ini
-chown root:root /etc/php/7.0/cli/php.ini
+cp /etc/php/7.2/apache2/php.ini /etc/php/7.2/apache2/php.ini-original
+cp /etc/php/7.2/cli/php.ini /etc/php/7.2/cli/php.ini-original
+cp -f ~/delivered-conf/php/7.2/apache2/php.ini /etc/php/7.2/apache2/
+chmod 644 /etc/php/7.2/apache2/php.ini
+chown root:root /etc/php/7.2/apache2/php.ini
+cp -f ~/delivered-conf/php/7.2/cli/php.ini /etc/php/7.2/cli/
+chmod 644 /etc/php/7.2/cli/php.ini
+chown root:root /etc/php/7.2/cli/php.ini
 
 a2ensite /etc/apache2/sites-available/pma.conf
 apache2ctl restart
