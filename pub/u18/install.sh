@@ -103,10 +103,9 @@ chmod 766 /home/$REGULAR_USER/.vim
 ## Install user soft
 apt-get -y install vim
 #apt-get -y purge smplayer lxmusic #mpv
-#apt-get -y install vlc thunderbird gparted audacity
+apt-get -y install vlc thunderbird #gparted audacity
 
 ## Desktop developer soft
-# some fix problem
 apt-get -y install meld mysql-workbench filezilla
 
 ## sublime-text && sublime-merge
@@ -166,6 +165,11 @@ vboxaddition_installed() {
 
 if [ vboxaddition_installed ];then
 	usermod -aG vboxsf $REGULAR_USER
+
+	# mount my directories
+	ln -s /media/sf_WWW /home/$REGULAR_USER/www
+	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
+
 	echo "Group vboxsf added for user: OK!"
 else
 	echo "Group vboxsf for user: failed"
@@ -286,21 +290,6 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 ## docker and docker-compose
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
-# sudo apt-get install \
-#     apt-transport-https \
-#     ca-certificates \
-#     curl \
-#     gnupg-agent \
-#     software-properties-common
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-# apt-key fingerprint 0EBFCD88
-# sudo add-apt-repository \
-#    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-#    $(lsb_release -cs) \
-#    stable"
-# sudo apt-get update
-# sudo apt-get install docker-ce docker-ce-cli containerd.io
-
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
@@ -334,13 +323,6 @@ kubectl_ready() {
 if [ kubectl_ready ] ;then
 	echo "kubectl installed: Ok!"
 fi
-
-# google cloud sdk
-# wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
-# tar czf google-cloud-sdk-289.0.0-linux-x86_64.tar.gz $$ rm google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
-# cd google-cloud-sdk-289.0.0-linux-x86_64
-# ./google-cloud-sdk/install.sh
-# ./google-cloud-sdk/bin/gcloud init
 
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 #OR: echo "deb https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list

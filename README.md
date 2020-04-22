@@ -2,7 +2,7 @@ shdeploy
 ========
 
 This application with golang simple web file-server for hosting text configuration files, bash scripts and other file for deploy linux environment for developers. Also in 'pub/deb9/' placed the preseed file for autonomous Debian9 amd64 installation with preconfigured passwords for root and mysql server. You may rename '_preseed' to 'preseed' then edit appropriate root and user passwords and use it. 
-Now it ready for Debian 9 (and for Ubuntu 16 and Ubuntu 18 coming soon) system in virtual box containers. 
+Now it ready for Debian 9, Ubuntu 16 and Ubuntu 18 systems in virtual box guest containers. 
 
 to Debian 9 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
@@ -26,7 +26,7 @@ Also to Ubuntu 16 environment with next useful packages for everyday developers 
 - [x] LAMP stack with PhpMyAdmin
 - [x] Golang 1.13 environment
 - [x] NodeJS and NPM of nodejs 12.x version
-- [ ] VirtualBox Guest linux additional support
+- [x] VirtualBox Guest linux additional support
 - [x] Python3, pip3 and venv
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
@@ -53,7 +53,7 @@ On target server with installed curl in terminal you will run:
 su root
 # for Debian 9:
 curl http://192.168.10.100:3000/deb9/install.sh | sh
-# Or for Ubuntu 16:
+# Or for Ubuntu 16/18:
 curl http://192.168.10.100:3000/u16/install.sh | sh
 ```
 
@@ -62,7 +62,7 @@ Or without curl use wget (for example deploy-host with 192.168.10.100):
 ```bash
 # For Debian 9:
 wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
-## OR for Ubuntu 16:
+## OR for Ubuntu 16/18:
 wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
 ```
 
