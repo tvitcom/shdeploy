@@ -81,12 +81,13 @@ echo $REGULAR_USER"	ALL=(ALL:ALL)	ALL" >> /etc/sudoers
 chmod 750 /home/$REGULAR_USER
 
 ## common soft
-mv /root/.bashrc /root/.bashrc-original
-cp ~/delivered-conf/.bashrc /root
-chmod 644 /root/.bashrc
-apt-get -y install vim
+mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
+cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
+chmod 644 /home/$REGULAR_USER/.bashrc
+chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bashrc
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vimrc
+chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 cp -f ~/delivered-conf/.vimrc /root
 chmod 766 /root/.vimrc
