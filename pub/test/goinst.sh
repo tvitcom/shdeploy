@@ -1,0 +1,23 @@
+#!/bin/sh
+GOVERSION='1.13.9';
+GOSRC='Go';
+DTNOW=$(date +%Y%m%d%H%M%S);
+ARCHIT=$(dpkg --print-architecture);
+wget https://dl.google.com/go/go$GOVERSION.linux-$ARCHIT.tar.gz;
+tar xzf go$GOVERSION.linux-$ARCHIT.tar.gz;
+mv ~/go $HOME'/go'$GOVERSION;
+cp -f ~/.bashrc ~/.bashrc-before-$DTNOW;
+echo "" >> ~/.bashrc;
+echo '## GO '$GOVERSION >> ~/.bashrc;
+echo 'GOROOT=$HOME/go'$GOVERSION >> ~/.bashrc;
+echo 'GOPATH=$HOME/'$GOSRC >> ~/.bashrc;
+echo 'GOBIN=$GOROOT/bin' >> ~/.bashrc;
+echo "GOTMPDIR=/tmp" >> ~/.bashrc;
+echo 'GOARCH='$ARCHIT >> ~/.bashrc;
+echo 'GOOS=linux' >> ~/.bashrc;
+echo 'PATH=$PATH:$GOROOT/bin' >> ~/.bashrc;
+echo 'PATH=$PATH:$GOPATH/bin' >> ~/.bashrc;
+. .bashrc;
+rm go$GOVERSION.linux-$ARCHIT.tar.gz;
+rm goinst.sh;
+go version;
