@@ -64,15 +64,10 @@ chmod 644 /home/$REGULAR_USER/.ssh
 ufw enable && ufw default deny && ufw allow 12222/tcp
 
 # security
-apt-get -y purge ^vino
 apt-get -y purge ^zeitgeist
-apt-get -y purge xul-ext-ubufox deja-dup
-apt-get -y purge aisleriot gnome-sudoku
-apt-get -y purge ^remmina
-apt-get -y purge webbrowser-app
-apt-get -y purge ^rhythmbox
+apt-get -y purge xul-ext-ubufox
+apt-get -y purge gnome-sudoku
 apt-get -y purge unity-scope-gdrive
-apt-get -y purge unity-lens-photos
 apt-get -y autoremove
 chmod 750 /home/$REGULAR_USER
 
@@ -103,7 +98,7 @@ cp -rf ~/delivered-conf/.vim /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vim
 
 ## Install user soft
-apt-get -y install vim
+apt-get -y install vim exuberant-ctags
 #apt-get -y purge smplayer lxmusic #mpv
 apt-get -y install vlc thunderbird #gparted audacity
 
@@ -162,25 +157,26 @@ chmod 644 /home/$REGULAR_USER/.bash_aliases
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
 # It is now unstable ## virtual box additional
-# apt-get -y install build-essential module-assistant dkms
-# VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
+apt-get -y install build-essential module-assistant dkms
+VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
 
-# vboxaddition_installed() {
-# 	cat /etc/group | grep vboxsf > /dev/null 2>&1
-# }
+vboxaddition_installed() {
+	cat /etc/group | grep vboxsf > /dev/null 2>&1
+}
 
-# if [ "$VBOXPATH" -ne "" ];then
-# 	sh $VBOXPATH/*.run
-# 	if [ vboxaddition_installed ];then
-# 		usermod -aG vboxsf $REGULAR_USER
-# 	fi
-# 	# mount my directories
-# 	ln -s /media/sf_WWW /home/$REGULAR_USER/www
-# 	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
-# 	echo "Group vboxsf added for user: OK!"
-# else
-# 	echo "Group vboxsf for user: failed"
-# fi
+if [ "$VBOXPATH" -ne "" ];then
+	sh $VBOXPATH/*.run
+	if [ vboxaddition_installed ];then
+		usermod -aG vboxsf $REGULAR_USER
+		usermod -aG vboxsf www-data
+	fi
+	# mount my directories
+	ln -s /media/sf_WWW /home/$REGULAR_USER/www
+	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
+	echo "Group vboxsf added for user: OK!"
+else
+	echo "Group vboxsf for user: failed"
+fi
 
 ## lamp
 sudo apt-get -y install gcc make autoconf libc-dev pkg-config
@@ -195,6 +191,7 @@ apt-get -y install php7.2-sqlite php-xdebug php-pear
 apt-get -y install php-xml php-zip php-fpm php-gd php-memcache php-pgsql php-readline
 apt-get -y install php-intl php-bcmath php-mcrypt php-opcache
 apt-get -y install sqlite3 curl php-intl php-curl php-json
+apt-get -y install memcached
 phpenmod opcache mcrypt mbstring intl
 a2enmod ssl rewrite deflate headers expires
 
