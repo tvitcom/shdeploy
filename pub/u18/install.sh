@@ -1,6 +1,6 @@
 #!/bin/sh
 ##
-## Only for Debian 9 amd64 system
+## Only for Ubuntu 18 amd64 system
 ##
 
 ## configuration
@@ -229,11 +229,11 @@ apache2ctl restart
 
 ## mysqld
 apt-get -y install mariadb-server mariadb-client mariadb-common
-mkdir /etc/mysql/mysql.conf.d
-mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf-original
-cp -f ~/delivered-conf/my.cnf /etc/alternatives/my.cnf
-chmod 644 /etc/alternatives/my.cnf
-chown root:root /etc/alternatives/my.cnf
+# mkdir /etc/mysql/mysql.conf.d
+# mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf-original
+# cp -f ~/delivered-conf/my.cnf /etc/alternatives/my.cnf
+# chmod 644 /etc/alternatives/my.cnf
+# chown root:root /etc/alternatives/my.cnf
 
 mysql --user=root <<_EOF_
   UPDATE mysql.user SET Password=PASSWORD('${MYSQL_PASS}') WHERE User='root';
@@ -241,7 +241,7 @@ mysql --user=root <<_EOF_
   DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
   DROP DATABASE IF EXISTS test;
   DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-  UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root';
+  UPDATE mysql.user SET plugin='' WHERE User='root';
   FLUSH PRIVILEGES;
 _EOF_
 service mysql restart
@@ -339,6 +339,5 @@ sudo apt-get update && sudo apt-get -y install google-cloud-sdk
 apt-get -y install -f && apt-get clean && apt-get -y autoremove
 sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
-rm /root/$REMOTE_CONF_FILE
-rm -rf /root/$REMOTE_CONF
 echo "Deploy developers software is ready: Ok!"
+

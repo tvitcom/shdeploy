@@ -1,6 +1,6 @@
 #!/bin/sh
 ##
-## Only for Debian 9 amd64 system
+## Only for Ubuntu 16 amd64 system
 ##
 
 ## configuration
