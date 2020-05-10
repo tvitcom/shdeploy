@@ -16,7 +16,7 @@ cd $CURR_DIR"pub/u18"
 tar czf delivered-conf.tar.gz delivered-conf
 
 
-rsync -e 'ssh -p 12222' -PLSluvr --exclude=".git" --exclude=".gitignore" --del --no-perms --no-t $CURR_DIR a@192.168.10.100:$REMOTE_DIR
+rsync -e 'ssh -p 12222' -PLSluvr --exclude=".git" --exclude=".gitignore" --exclude="uploaded" --del --no-perms --no-t $CURR_DIR a@192.168.10.100:$REMOTE_DIR
 
 ## clean
 rm $CURR_DIR"pub/deb9/delivered-conf.tar.gz"
