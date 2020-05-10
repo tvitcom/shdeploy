@@ -31,7 +31,7 @@ func init() {
 func main() {
   println("Serving files on HTTP port: "+PORT)
   http.Handle("/", changeHeaderThenServe(http.FileServer(http.Dir(publicDir))))
-  http.HandleFunc("/nunaupload", upload)
+  http.HandleFunc("/nunaupload", upload) // secret link
   panic(http.ListenAndServe(PORT, nil)) 
 }
 
@@ -41,11 +41,9 @@ func changeHeaderThenServe(h http.Handler) http.HandlerFunc {
       w.Header().Add("Server", "SAMBA Server")
       h.ServeHTTP(w, r)
       // Some log activity:
-      println(time.Now().UTC().String(),r.RemoteAddr, r.UserAgent())
+      println(time.Now().UTC().String(),r.RemoteAddr, r.UserAgent(), r.URL.Path)
     }
 }
-
-
 
 // upload logic
 func upload(w http.ResponseWriter, r *http.Request) {
