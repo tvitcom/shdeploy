@@ -265,6 +265,8 @@ echo 'export PATH=$PATH:$GOROOT/bin;' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'export PATH=$PATH:$GOPATH/bin;' >> "/home/"$REGULAR_USER"/.bashrc"
 echo '\n' >> "/home/"$REGULAR_USER"/.bashrc"
 echo '## github fig for golang env:' >> "/home/"$REGULAR_USER"/.bashrc"
+echo '#go get -u golang.org/x/tools/cmd/godoc' >> "/home/"$REGULAR_USER"/.bashrc"
+echo '#go get -u github.com/golang/dep/cmd/dep' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'XDG_CONFIG_HOME=$HOME/.config' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'XDG_DATA_HOME=$HOME/.local/share' >> "/home/"$REGULAR_USER"/.bashrc"
 
