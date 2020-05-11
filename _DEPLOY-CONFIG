@@ -1,0 +1,5 @@
+## define
+PROJECT_DIR=$(basename $(pwd))
+CURR_DIR=$(pwd)"/"
+REMOTE_DIR="/var/www/"$PROJECT_DIR"/"
+

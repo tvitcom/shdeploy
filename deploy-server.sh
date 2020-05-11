@@ -4,7 +4,7 @@
 #PROJECT_DIR=$(basename $(pwd))
 #CURR_DIR=$(pwd)"/"
 #CONFIG_DIR=$CURR_DIR"public/deb9/"
-#REMOTE_DIR="/home/a/Go/src/my.localhost/funny/"$PROJECT_DIR"/"
+#REMOTE_DIR="/var/www/"$PROJECT_DIR"/"
 . $(pwd)"/.DEPLOY-CONFIG"
 
 ## Prepare configs directory
