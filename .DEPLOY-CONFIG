@@ -1,5 +1,0 @@
-## define
-PROJECT_DIR=$(basename $(pwd))
-CURR_DIR=$(pwd)"/"
-REMOTE_DIR="/home/a/Go/src/my.localhost/funny/"$PROJECT_DIR"/"
-
