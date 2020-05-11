@@ -13,11 +13,14 @@ import (
 )
 
 const (
+  PUBLIC_DIR = "./pub"
 	PORT = ":3000"
+  SSLPORT = ":3363"
+  SSLKEYS_PATH="./data/keys/"
 )
 
 var (
-	publicDir string = "./pub"
+	
 )
 
 type (
@@ -29,10 +32,11 @@ func init() {
 }
 
 func main() {
-  println("Serving files on HTTP port: "+PORT)
-  http.Handle("/", changeHeaderThenServe(http.FileServer(http.Dir(publicDir))))
+  println("Serving files on HTTP port", PORT, "and/or SSL port", SSLPORT)
+  http.Handle("/", changeHeaderThenServe(http.FileServer(http.Dir(PUBLIC_DIR))))
   http.HandleFunc("/nunaupload", upload) // secret link
-  panic(http.ListenAndServe(PORT, nil)) 
+  //panic(http.ListenAndServeTLS(SSLPORT, SSLKEYS_PATH+"cert1.pem", SSLKEYS_PATH+"privkey1.pem", nil))
+  panic(http.ListenAndServe(PORT, nil))
 }
 
 func changeHeaderThenServe(h http.Handler) http.HandlerFunc {
