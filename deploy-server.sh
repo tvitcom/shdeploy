@@ -1,27 +1,32 @@
 #!/bin/sh
 
 ## Define from ENV file like this
-#PROJECT_DIR=$(basename $(pwd))
-#CURR_DIR=$(pwd)"/"
-#CONFIG_DIR=$CURR_DIR"public/deb9/"
-#REMOTE_DIR="/var/www/"$PROJECT_DIR"/"
-. $(pwd)"/.DEPLOY-CONFIG"
+# PROJECT_DIR=$(basename $(pwd))
+# LOCAL_DIR=$(pwd)"/"
+# REMOTE_DIR="/funny/"$PROJECT_DIR"/"
+# REMOTE_USER="xxxx"
+# REMOTE_PORT="xxxx"
+# REMOTE_HOST="192.168.xxx.xxx"
+. $(pwd)"/DEPLOY.CONF"
 
 ## Prepare configs directory
-cd $CURR_DIR"pub/deb9"
+cd $LOCAL_DIR"pub/deb9"
 tar czf delivered-conf.tar.gz delivered-conf
-cd $CURR_DIR"pub/u16"
+cd $LOCAL_DIR"pub/u16"
 tar czf delivered-conf.tar.gz delivered-conf
-cd $CURR_DIR"pub/u18"
+cd $LOCAL_DIR"pub/u18"
 tar czf delivered-conf.tar.gz delivered-conf
 
 
-rsync -e 'ssh -p 12222' -PLSluvr --exclude=".git" --exclude=".gitignore" --exclude="uploaded" --del --no-perms --no-t $CURR_DIR a@192.168.10.100:$REMOTE_DIR
+rsync -e "ssh -p $REMOTE_PORT" -PLSluvr \
+	--exclude=".git" --exclude=".gitignore" --exclude="uploaded" \
+	--del --no-perms --no-t \
+	$LOCAL_DIR $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
 
 ## clean
-rm $CURR_DIR"pub/deb9/delivered-conf.tar.gz"
-rm $CURR_DIR"pub/u16/delivered-conf.tar.gz"
-rm $CURR_DIR"pub/u18/delivered-conf.tar.gz"
+rm $LOCAL_DIR"pub/deb9/delivered-conf.tar.gz"
+rm $LOCAL_DIR"pub/u16/delivered-conf.tar.gz"
+rm $LOCAL_DIR"pub/u18/delivered-conf.tar.gz"
 
 echo "Deployed to webserver installation host: Ok!"
 exit 100
