@@ -342,5 +342,8 @@ sudo apt-get update && sudo apt-get -y install google-cloud-sdk
 apt-get -y install -f && apt-get clean && apt-get -y autoremove
 sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
+curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
+apt-get update
+
 echo "Deploy developers software is ready: Ok!"
 
