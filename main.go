@@ -13,6 +13,7 @@ import (
 )
 
 const (
+  SRV_NAME = "SAMBA Server"
   PUBLIC_DIR = "./pub"
 	PORT = ":3000"
   SSLPORT = ":3363"
@@ -42,7 +43,7 @@ func main() {
 func changeHeaderThenServe(h http.Handler) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
       // Set some header
-      w.Header().Add("Server", "SAMBA Server")
+      w.Header().Add("Server", SRV_NAME)
       h.ServeHTTP(w, r)
       // Some log activity:
       println(time.Now().UTC().String(),r.RemoteAddr, r.UserAgent(), r.URL.Path)
