@@ -1,5 +1,5 @@
-alias Go="cd /home/r/WWW/Go/src/my.localhost/funny"
-alias WWW="cd /home/bkp/WWW && ls -lash"
+alias Go="cd ~/Go/src/my.localhost/funny"
+alias WWW="cd /var/WWW && ls -lash"
 alias redis="cd redis-4.0.8/src/ && ./redis-server ../redis.conf&"
 alias currdt="echo $(date +%Y%m%d%H%M)"
 alias mygitinit="sh ~/c@mp/Git/sett_repo.sh"
