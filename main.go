@@ -15,9 +15,9 @@ import (
 const (
   SRV_NAME = "SAMBA Server"
   PUBLIC_DIR = "./pub"
-	PORT = ":3000"
-  SSLPORT = ":3363"
-  SSLKEYS_PATH="./data/keys/"
+	PORT = "0.0.0.0:3000"
+  SSLPORT = "0.0.0.0:4443"
+  SSLKEYS_PATH="./data/certs/"
 )
 
 var (

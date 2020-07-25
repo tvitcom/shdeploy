@@ -20,7 +20,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] google cloud sdk
 
 to Debian 10 environment with next useful packages for everyday developers need: 
-- [ ] SSH server (on port 12222)
+- [x] SSH server (on port 12222)
 - [ ] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
 - [ ] Skype
 - [ ] Git, Svn, Vim
@@ -63,23 +63,17 @@ On the web-server deployment host with golang environment:
 ```
 Or any other appropriate web-server like apache2, nginx, etc with hosted public /pub directory as webroot condition.
 
-On target server with installed curl in terminal you will run:
-
-```bash
-su root
-# for Debian 9:
-curl http://192.168.10.100:3000/deb9/install.sh | sh
-# Or for Ubuntu 16/18:
-curl http://192.168.10.100:3000/u16/install.sh | sh
-```
-
-Or without curl use wget (for example deploy-host with 192.168.10.100):
+Using wget (*for example deploy-host with 192.168.10.100) start software deploy:
 
 ```bash
 # For Debian 9:
 wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
-## OR for Ubuntu 16/18:
-wget http://192.168.10.100:3000/deb9/install.sh && sh install.sh
+# For Debian 10:
+wget http://192.168.10.100:3000/deb10/install.sh && sh install.sh
+## OR for Ubuntu 16:
+wget http://192.168.10.100:3000/u16/install.sh && sh install.sh
+## OR for Ubuntu 18:
+wget http://192.168.10.100:3000/u18/install.sh && sh install.sh
 ```
 
 NOTICE: 
