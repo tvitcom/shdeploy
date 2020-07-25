@@ -9,7 +9,7 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
 - [ ] Skype
 - [x] Git, Svn, Vim
-- [X] Sublime-Text && Sublime-Merge - awesome tools:)
+- [x] Sublime-Text && Sublime-Merge - awesome tools:)
 - [x] LAMP stack with PhpMyAdmin
 - [x] VirtualBox additional autoinstallation with inserted iso
 - [x] Golang 1.13 environment
@@ -18,6 +18,21 @@ to Debian 9 environment with next useful packages for everyday developers need:
 - [x] Docker, Docker-Compose
 - [x] Kubernetis (kubectl)
 - [x] google cloud sdk
+
+to Debian 10 environment with next useful packages for everyday developers need: 
+- [ ] SSH server (on port 12222)
+- [ ] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
+- [ ] Skype
+- [ ] Git, Svn, Vim
+- [ ] Sublime-Text && Sublime-Merge - awesome tools:)
+- [ ] LAMP stack with PhpMyAdmin
+- [ ] VirtualBox additional autoinstallation with inserted iso
+- [ ] Golang 1.13 environment
+- [ ] NodeJS and NPM of nodejs 12.x version
+- [ ] Python3, pip3 and venv
+- [ ] Docker, Docker-Compose
+- [ ] Kubernetis (kubectl)
+- [ ] google cloud sdk
 
 Also to Ubuntu 16/18 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
