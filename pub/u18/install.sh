@@ -4,6 +4,7 @@
 ##
 
 ## configuration
+
 REGULAR_USER="a"
 MYSQL_PASS="L;bycs_"$(hostname)
 GOLANG_VER="1.13.9"
@@ -13,15 +14,18 @@ REMOTE_CONF="delivered-conf"
 REMOTE_CONF_FILE=$REMOTE_CONF".tar.gz"
 
 ## validation of current user
+
 if [ $(id -u) != "0" ];then
    echo "You must be root to do this." 2>&1
    exit 100
 fi
 
 ## init from /root only
+
 cd /root
 
 ## bootstrap of config
+
 wget $REMOTE_DEPLOY_ENDPOINT$REMOTE_DEPLOY_PATH$REMOTE_CONF_FILE -O $REMOTE_CONF_FILE
 tar xzf $REMOTE_CONF_FILE
 
@@ -31,12 +35,14 @@ if ! [ -d ~/delivered-conf ] || ! [ -f ~/delivered-conf/ssh/id_rsa.pub ];then
 fi
 
 ## apt
+
 apt-get clean
 # mv /etc/apt/sources.list /etc/apt/sources.list-original
 # cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get clean && apt-get update
 
 ## ssh
+
 apt-get -y install openssh-server
 
 if ! [ -f /etc/ssh/sshd_config-original ];then
@@ -61,10 +67,12 @@ chmod -R 0760 /home/$REGULAR_USER/.ssh
 chmod 600 /home/$REGULAR_USER/.ssh/authorized_keys
 
 # ufw
+
 # apt-get -y install ufw
 ufw enable && ufw default deny && ufw allow 12222/tcp
 
 # security
+
 apt-get -y purge ^zeitgeist
 apt-get -y purge xul-ext-ubufox
 apt-get -y purge gnome-sudoku
@@ -73,10 +81,12 @@ apt-get -y autoremove
 chmod 750 /home/$REGULAR_USER
 
 ## common soft
+
 apt-get -y install p7zip-full curl
 apt-get -y install apt-transport-https 
 
 # configs
+
 if [ -f /root/.bashrc ];then
 	mv /root/.bashrc /root/.bashrc-original
 fi
@@ -99,18 +109,22 @@ cp -rf ~/delivered-conf/.vim /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vim
 
 ## Install user soft
+
 apt-get -y install vim exuberant-ctags
 #apt-get -y purge smplayer lxmusic #mpv
 apt-get -y install vlc thunderbird #gparted audacity
 
 ## Desktop developer soft
+
 apt-get -y install meld mysql-workbench filezilla
 
 ## skype 
+
 wget https://go.skype.com/skypeforlinux-64.deb
 dpkg -i skypeforlinux-64.deb
 
 ## sublime-text && sublime-merge
+
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 sudo apt-get -y install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
@@ -118,15 +132,18 @@ sudo apt-get update
 sudo apt-get -y install sublime-text sublime-merge
 
 ## google-chrom
+
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get -y install ./google-chrome-stable_current_amd64.deb
 
 ## command developer soft
+
 apt-get -y install gcc make linux-headers-$(uname -r)
 apt-get -y install exuberant-ctags
 apt-get -y install sqlite3 libsqlite3-dev subversion
 
 ## Install and configure git
+
 apt-get install -y dirmngr --install-recommends
 apt-get install -y software-properties-common
 apt-get install -y git-core git-svn tig
@@ -158,6 +175,7 @@ chmod 644 /home/$REGULAR_USER/.bash_aliases
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
 # It is now unstable ## virtual box additional
+
 apt-get -y install build-essential module-assistant dkms
 VBOXPATH=$(ls /media/$REGULAR_USER | grep VBOXADD)
 
@@ -180,6 +198,7 @@ else
 fi
 
 ## lamp
+
 sudo apt-get -y install gcc make autoconf libc-dev pkg-config
 
 apt-get -y install openssl libssl-dev
@@ -229,6 +248,7 @@ a2ensite /etc/apache2/sites-available/pma.conf
 apache2ctl restart
 
 ## mysqld
+
 apt-get -y install mariadb-server mariadb-client mariadb-common
 # mkdir /etc/mysql/mysql.conf.d
 # mv /etc/alternatives/my.cnf /etc/alternatives/my.cnf-original
@@ -249,6 +269,7 @@ service mysql restart
 apt-get clean
 
 ## golang
+
 mkdir -m 777 -p /home/$REGULAR_USER/Go/src/my.localhost/funny/
 mkdir -m 777 -p /home/$REGULAR_USER/.local/share
 
@@ -276,6 +297,7 @@ chmod -R 777 /home/$REGULAR_USER/Go
 chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 
 ## nodejs
+
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get update && apt-get install -y nodejs gcc g++ make
 
@@ -284,6 +306,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.lis
 apt-get update && apt-get install --no-install-recommends yarn
 
 ## python3
+
 apt-get update && apt-get -y install python3-venv
 apt-get -y install python3-pip python3-dev
 
@@ -295,6 +318,7 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 ## JupiterNotebook
 
 ## docker and docker-compose
+
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -319,6 +343,7 @@ if [ docker_installed ] && [ docker_compose_installed ];then
 fi
 
 ## Kubernetis
+
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
@@ -339,6 +364,7 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyr
 sudo apt-get update && sudo apt-get -y install google-cloud-sdk
 
 ## finalise
+
 apt-get -y install -f && apt-get clean && apt-get -y autoremove
 sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 

@@ -4,6 +4,7 @@
 ##
 
 ## configuration
+
 REGULAR_USER="a"
 MYSQL_PASS="L;bycs_"$(hostname)
 GOLANG_VER="1.13.9"
@@ -13,15 +14,18 @@ REMOTE_CONF="delivered-conf"
 REMOTE_CONF_FILE=$REMOTE_CONF".tar.gz"
 
 ## validation of current user
+
 if [ $(id -u) != "0" ];then
    echo "You must be root to do this." 2>&1
    exit 100
 fi
 
 ## init from /root only
+
 cd /root
 
 ## bootstrap of config
+
 wget $REMOTE_DEPLOY_ENDPOINT$REMOTE_DEPLOY_PATH$REMOTE_CONF_FILE -O $REMOTE_CONF_FILE
 tar xzf $REMOTE_CONF_FILE
 
@@ -31,6 +35,7 @@ if ! [ -d ~/delivered-conf ] || ! [ -f ~/delivered-conf/ssh/id_rsa.pub ];then
 fi
 
 ## apt
+
 apt-get clean
 mv /etc/apt/sources.list /etc/apt/sources.list-original
 cp -f ~/delivered-conf/sources.list /etc/apt
@@ -41,6 +46,7 @@ apt-get -y install ufw sudo curl # fix with absent curl
 
 
 ## ssh
+
 if ! [ -f /etc/ssh/sshd_config ];then
 	apt-get -y install openssh-server
 fi
@@ -61,6 +67,7 @@ else
 	cat ~/delivered-conf/ssh/id_rsa.pub > ~/.ssh/authorized_keys
 fi
 # ssh key for user
+
 if [ -f /home/$REGULAR_USER/.ssh/authorized_keys ];then
 	cat ~/delivered-conf/ssh/id_rsa.pub >> /home/$REGULAR_USER/.ssh/authorized_keys
 else
@@ -72,14 +79,17 @@ chmod 600 /home/$REGULAR_USER/.ssh
 chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
 
 # ufw
+
 ufw enable && ufw default deny && ufw allow 12222/tcp
 
 # sudo
+
 usermod -aG sudo $REGULAR_USER
 echo $REGULAR_USER"	ALL=(ALL:ALL)	ALL" >> /etc/sudoers
 chmod 750 /home/$REGULAR_USER
 
 ## common soft
+
 mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
 cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
 chmod 644 /home/$REGULAR_USER/.bashrc
@@ -98,15 +108,18 @@ apt-get -y install p7zip-full curl
 apt-get -y install apt-transport-https 
 
 ## Install user soft
+
 #apt-get -y purge smplayer lxmusic #mpv
 #apt-get -y install cryptsetup desktop-file-utils
 #apt-get -y install vim-gtk
 #apt-get -y install vlc thunderbird gparted audacity
 
 ## Desktop developer soft
+
 apt-get -y install meld mysql-workbench filezilla chromium
 
 ## sublime-text && sublime-merge
+
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 apt-get install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
@@ -114,15 +127,18 @@ apt-get update
 apt-get install sublime-text sublime-merge
 
 ## google-chrom
+
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get install -y ./google-chrome-stable_current_amd64.deb
 
 ## command developer soft
+
 apt-get -y install gcc make linux-headers-amd64
 apt-get -y install exuberant-ctags
 apt-get -y install sqlite3 libsqlite3-dev subversion
 
 ## Install and configure git
+
 apt-get install -y dirmngr --install-recommends
 apt-get install -y software-properties-common
 apt-get install -y git-core git-svn tig
@@ -154,6 +170,7 @@ chmod 644 /home/$REGULAR_USER/.bash_aliases
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bash_aliases
 
 ## virtual box additional
+
 apt-get upgrade
 apt-get -y install build-essential module-assistant dkms
 
@@ -183,6 +200,7 @@ if [ vboxaddition_installed ];then
 fi
 
 ## lamp
+
 apt-get -y install ca-certificates
 apt-get -y install apache2 libxml2-dev
 apt-get -y install php php-mysql libapache2-mod-php
@@ -226,6 +244,7 @@ a2ensite /etc/apache2/sites-available/pma.conf
 service apache2 restart
 
 ## mysqld
+
 apt-get -y install mariadb-server mariadb-client mariadb-common
 mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf-original
 mv ~/delivered-conf/50-server.cnf /etc/mysql/mariadb.conf.d
@@ -272,6 +291,7 @@ chmod -R 777 /home/$REGULAR_USER/Go
 chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 
 ## nodejs
+
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get update && apt-get install -y nodejs npm
 
@@ -280,6 +300,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.lis
 apt-get update && apt-get install --no-install-recommends yarn
 
 ## python3
+
 apt-get update && apt-get upgrade && apt-get -y install python3-venv
 
 cp -f ~/delivered-conf/.pyrc /home/$REGULAR_USER
@@ -288,9 +309,11 @@ chmod 644 /home/$REGULAR_USER/.pyrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 
 ## JupiterNotebook
+
 apt-get -y install python3-pip python3-dev
 
 ## docker and docker-compose
+
 apt-get -y install gnupg2
 # curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
@@ -311,6 +334,7 @@ if [ docker_installed ] && [ docker_compose_installed ];then
 fi
 
 ## Kubernetis
+
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
@@ -324,6 +348,7 @@ if [ kubectl_ready ] ;then
 fi
 
 # google cloud sdk
+
 # wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
 # tar czf google-cloud-sdk-289.0.0-linux-x86_64.tar.gz $$ rm google-cloud-sdk-289.0.0-linux-x86_64.tar.gz
 # cd google-cloud-sdk-289.0.0-linux-x86_64
@@ -342,6 +367,7 @@ apt-get update && apt-get install google-cloud-sdk
 ## TODO:dlib
 
 ## finalise
+
 apt-get -y install -f && apt-get -y autoremove && apt-get clean
 . /root/.bashrc
 rm /root/$REMOTE_CONF_FILE
