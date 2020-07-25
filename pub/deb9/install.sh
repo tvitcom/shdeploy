@@ -4,9 +4,8 @@
 ##
 
 ## configuration
-SET_HOSTNAME="testdeb9"
 REGULAR_USER="a"
-MYSQL_PASS="L;bycs_"$SET_HOSTNAME
+MYSQL_PASS="L;bycs_"$(hostname)
 GOLANG_VER="1.13.9"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.10.100:3000/"
 REMOTE_DEPLOY_PATH="deb9/"
