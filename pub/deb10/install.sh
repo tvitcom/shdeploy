@@ -230,25 +230,41 @@ mv approot /var/WWW/pma/approot
 chmod 777 /var/WWW
 chmod 644 /var/WWW/pma/approot/config.inc.php
 
+mv /etc/apache2/conf-available/security.conf /etc/apache2/conf-available/security.conf-original
+cp ~/delivered-conf/conf-available/security.conf /etc/apache2/conf-available/
+chmod 644 /etc/apache2/apache2.conf
+chown root:root /etc/apache2/apache2.conf
 mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf-original
-mv ~/delivered-conf/apache2.conf /etc/apache2
+cp ~/delivered-conf/apache2.conf /etc/apache2
 chmod 644 /etc/apache2/apache2.conf
 chown root:root /etc/apache2/apache2.conf
 mv /etc/apache2/sites-available /etc/apache2/sites-available-original
-mv ~/delivered-conf/sites-available /etc/apache2
+cp -r ~/delivered-conf/sites-available /etc/apache2
 chmod 755 /etc/apache2/sites-available
 chown root:root  /etc/apache2/sites-available
 chmod 644 /etc/apache2/sites-available/*.conf
 chown root:root  /etc/apache2/sites-available/*.conf
 
-mv /etc/php/7.0/apache2/php.ini /etc/php/7.0/apache2/php.ini-original
-mv /etc/php/7.0/cli/php.ini /etc/php/7.0/cli/php.ini-original
-cp -f ~/delivered-conf/php/7.0/apache2/php.ini /etc/php/7.0/apache2/
-chmod 644 /etc/php/7.0/apache2/php.ini
-chown root:root /etc/php/7.0/apache2/php.ini
-cp -f ~/delivered-conf/php/7.0/cli/php.ini /etc/php/7.0/cli/
-chmod 644 /etc/php/7.0/cli/php.ini
-chown root:root /etc/php/7.0/cli/php.ini
+mv /etc/php/7.3/apache2/php.ini /etc/php/7.0/apache2/php.ini-original
+mv /etc/php/7.7.3/cli/php.ini /etc/php/7.3/cli/php.ini-original
+mv /etc/php/7.7.3/cli/php.ini /etc/php/7.3/cgi/php.ini-original
+mv /etc/php/7.7.3/cli/php.ini /etc/php/7.3/fpm/php.ini-original
+
+cp -f ~/delivered-conf/php/7.3/apache2/php.ini /etc/php/7.3/apache2/
+chmod 644 /etc/php/7.3/apache2/php.ini
+chown root:root /etc/php/7.3/apache2/php.ini
+
+cp -f ~/delivered-conf/php/7.3/cli/php.ini /etc/php/7.3/cli/
+chmod 644 /etc/php/7.3/cli/php.ini
+chown root:root /etc/php/7.3/cli/php.ini
+
+cp -f ~/delivered-conf/php/7.3/cgi/php.ini /etc/php/7.3/cgi/
+chmod 644 /etc/php/7.3/cgi/php.ini
+chown root:root /etc/php/7.3/cgi/php.ini
+
+cp -f ~/delivered-conf/php/7.3/fpm/php.ini /etc/php/7.3/fpm/
+chmod 644 /etc/php/7.3/fpm/php.ini
+chown root:root /etc/php/7.3/fpm/php.ini
 
 a2ensite /etc/apache2/sites-available/pma.conf
 service apache2 restart
