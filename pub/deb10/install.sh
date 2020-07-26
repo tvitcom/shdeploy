@@ -123,10 +123,6 @@ apt-get -y install apt-transport-https
 ## Desktop developer soft
 
 apt-get -y install meld filezilla chromium searchmonkey
-wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.21-1ubuntu18.04_amd64.deb
-apt-get -y install gdebi-core gdebi
-gdebi -n mysql-workbench*amd64.deb
-apt --fix-broken install && apt autoremove -y 
 
 ## sublime-text && sublime-merge
 
