@@ -201,8 +201,8 @@ vboxaddition_installed() {
 }
 
 if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
-	sh /media/cdrom0/VBox*.run
-	echo "VBoxLinuxAdditions.run succesfully start: OK!"
+	sh /media/cdrom0/autorun.sh
+	echo "VBoxLinuxAdditions done after reboot"
 fi
 if [ vboxaddition_installed ];then
 	/sbin/adduser $REGULAR_USER vboxsf
