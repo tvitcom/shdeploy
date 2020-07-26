@@ -43,9 +43,7 @@ cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get -y purge bluez bluetooth
 apt-get -y purge popularity-contest
 apt-get clean && apt-get update && apt-get upgrade
-apt-get -y install ufw
-apt-get -y install sudo
-apt-get -y install curl
+apt-get -y install ufw sudo curl
 
 
 ## ssh
@@ -88,7 +86,7 @@ chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
 
 # ufw
 
-ufw enable && ufw default deny && ufw allow 12222/tcp
+/sbin/ufw enable && /sbin/ufw default deny && /sbin/ufw allow 12222/tcp
 
 # sudo
 
