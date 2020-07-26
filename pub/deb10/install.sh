@@ -3,7 +3,7 @@
 ## Only for Debian 10 amd64 system
 ##
 
-## configuration
+## configuration (Shoul be in the header scripts anyway!!!)
 
 SET_HOSTNAME="deb10"
 REGULAR_USER="a"
