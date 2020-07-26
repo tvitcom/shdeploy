@@ -120,22 +120,22 @@ apt-get -y install apt-transport-https
 
 apt-get -y install meld filezilla chromium searchmonkey
 wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.21-1ubuntu18.04_amd64.deb
-sudo apt install gdebi-core gdebi
+apt-get -y install gdebi-core gdebi
 gdebi -n mysql-workbench*amd64.deb
 apt --fix-broken install && apt autoremove -y 
 
 ## sublime-text && sublime-merge
 
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
-apt-get install apt-transport-https
+apt-get -y install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 apt-get update
-apt-get install sublime-text sublime-merge
+apt-get -y install sublime-text sublime-merge
 
 ## google-chrome
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt-get install -y ./google-chrome-stable_current_amd64.deb
+apt-get -y install ./google-chrome-stable_current_amd64.deb
 
 ## command developer soft
 
