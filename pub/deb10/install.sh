@@ -322,13 +322,15 @@ chmod -R 777 /home/$REGULAR_USER/Go
 chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 
 ## nodejs
+cd ~
+curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+/bin/bash nodesource_setup.sh
+apt-get update && apt-get install -y nodejs
 
-curl -sL https://deb.nodesource.com/setup_12.x | bash -
-apt-get update && apt-get install -y nodejs npm
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+apt-get update && apt-get install -y yarn
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-apt-get update && apt-get install --no-install-recommends yarn
 
 ## python3
 
