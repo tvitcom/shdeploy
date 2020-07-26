@@ -206,7 +206,8 @@ if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
 fi
 if [ vboxaddition_installed ];then
 	/sbin/adduser $REGULAR_USER vboxsf
-	echo "Group vboxsf added for user: OK!"
+	/sbin/adduser www-data vboxsf
+	echo "Group vboxsf added for users: OK!"
 fi
 
 ## lamp
@@ -309,7 +310,7 @@ echo 'export GOARCH=amd64;' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'export GOOS=linux;' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'export PATH=$PATH:$GOROOT/bin;' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'export PATH=$PATH:$GOPATH/bin;' >> "/home/"$REGULAR_USER"/.bashrc"
-echo 'go get -u golang.org/x/tools/cmd/godoc' >> "/home/"$REGULAR_USER"/.bashrc"
+echo '#go get -u golang.org/x/tools/cmd/godoc' >> "/home/"$REGULAR_USER"/.bashrc"
 
 echo '\n' >> "/home/"$REGULAR_USER"/.bashrc"
 echo '## github fig for golang env:' >> "/home/"$REGULAR_USER"/.bashrc"

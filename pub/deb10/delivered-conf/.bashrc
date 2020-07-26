@@ -21,4 +21,6 @@
 export PYTHONSTARTUP="${HOME}/.pyrc"
 export PYTHONIOENCODING="UTF-8"
 #####
-source ~/.bash_aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi

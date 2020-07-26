@@ -193,9 +193,6 @@ if [ "$VBOXPATH" -ne "" ];then
 		usermod -aG vboxsf $REGULAR_USER
 		usermod -aG vboxsf www-data
 	fi
-	# mount my directories
-	ln -s /media/sf_WWW /home/$REGULAR_USER/www
-	ln -s /media/sf_c@mp /home/$REGULAR_USER/c@mp
 	echo "Group vboxsf added for user: OK!"
 else
 	echo "Group vboxsf for user: failed"
