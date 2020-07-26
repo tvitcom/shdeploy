@@ -62,6 +62,10 @@ if ! [ -d /root/.ssh ];then
 	mkdir -m 600 /root/.ssh
 fi
 
+if ! [ -d /home/$REGULAR_USER/.ssh ];then
+	mkdir -m 600 /home/$REGULAR_USER/.ssh
+fi
+
 if [ -f ~/.ssh/authorized_keys ];then
 	cat ~/delivered-conf/ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 else
@@ -75,7 +79,7 @@ if [ -f /home/$REGULAR_USER/.ssh/authorized_keys ];then
 else
 	cat ~/delivered-conf/ssh/id_rsa.pub > /home/$REGULAR_USER/.ssh/authorized_keys
 fi
-service ssh restart
+systemctl restart ssh
 cp -r ~/.ssh /home/$REGULAR_USER
 chmod 600 /home/$REGULAR_USER/.ssh
 chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
@@ -201,7 +205,7 @@ if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
 	echo "VBoxLinuxAdditions.run succesfully start: OK!"
 fi
 if [ vboxaddition_installed ];then
-	adduser $REGULAR_USER vboxsf
+	/sbin/adduser $REGULAR_USER vboxsf
 	echo "Group vboxsf added for user: OK!"
 fi
 
@@ -267,7 +271,7 @@ chmod 644 /etc/php/7.3/fpm/php.ini
 chown root:root /etc/php/7.3/fpm/php.ini
 
 a2ensite /etc/apache2/sites-available/pma.conf
-service apache2 restart
+systemctl restart apache2
 
 ## mysqld
 
@@ -286,7 +290,7 @@ mysql --user=root <<_EOF_
   UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root';
   FLUSH PRIVILEGES;
 _EOF_
-service mysql restart
+systemctl restart mysql
 
 ## golang
 
@@ -344,7 +348,7 @@ apt-get -y install gnupg2
 # curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 apt-get update && apt-get -y install docker.io
-usermod -aG docker $REGULAR_USER
+/sbin/usermod -aG docker $REGULAR_USER
 
 curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose

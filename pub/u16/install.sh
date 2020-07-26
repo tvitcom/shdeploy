@@ -55,6 +55,10 @@ if ! [ -d /root/.ssh ];then
 	mkdir -m 644 /root/.ssh
 fi
 
+if ! [ -d /home/$REGULAR_USER/.ssh ];then
+	mkdir -m 600 /home/$REGULAR_USER/.ssh
+fi
+
 if [ -f ~/.ssh/authorized_keys ];then
 	cat ~/delivered-conf/ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 else
