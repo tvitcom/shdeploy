@@ -43,7 +43,9 @@ cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get -y purge bluez bluetooth
 apt-get -y purge popularity-contest
 apt-get clean && apt-get update && apt-get upgrade
-apt-get -y install ufw sudo curl # fix with absent curl
+apt-get -y install ufw
+apt-get -y install sudo
+apt-get -y install curl
 
 
 ## ssh
@@ -96,14 +98,21 @@ chmod 750 /home/$REGULAR_USER
 
 ## common soft
 
+mv /root/.bashrc /root/.bashrc-original
+cp ~/delivered-conf/.bashrc.root /root/.bashrc
+chmod 644 /root/.bashrc
+chown $REGULAR_USER:$REGULAR_USER /root/.bashrc
+
 mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
-cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
+cp ~/delivered-conf/.bashrc.user /home/$REGULAR_USER/.bashrc
 chmod 644 /home/$REGULAR_USER/.bashrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bashrc
+
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
+
 cp -f ~/delivered-conf/.vimrc /root
 chmod 766 /root/.vimrc
 cp -rf ~/delivered-conf/.vim /root
