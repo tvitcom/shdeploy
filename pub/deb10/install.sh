@@ -223,8 +223,9 @@ apt-get -y install php7.3-curl php7.3-soap
 apt-get -y install php-xml php-zip php-fpm php-gd php-memcache php-pgsql php-readline
 apt-get -y install php-intl php-bcmath php7.3-opcache 
 apt-get -y install libmcrypt-dev
-apt-get -y install php-dev libmcrypt-dev php-pear
-pecl channel-update pecl.php.net
+apt-get -y install php-dev
+# apt-get -y install libmcrypt-dev php-pear
+# pecl channel-update pecl.php.net
 #!!! You should add "extension=mcrypt.so" to appropriates php.ini files
 phpenmod opcache mbstring intl
 a2enmod ssl rewrite headers expires
