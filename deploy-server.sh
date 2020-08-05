@@ -10,6 +10,8 @@
 . $(pwd)"/DEPLOY.CONF"
 
 ## Prepare configs directory
+cd $LOCAL_DIR"pub/deb8"
+tar czf delivered-conf.tar.gz delivered-conf
 cd $LOCAL_DIR"pub/deb9"
 tar czf delivered-conf.tar.gz delivered-conf
 cd $LOCAL_DIR"pub/deb10"
@@ -26,6 +28,7 @@ rsync -e "ssh -p $REMOTE_PORT" -PLSluvr \
 	$LOCAL_DIR $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
 
 ## clean
+rm $LOCAL_DIR"pub/deb8/delivered-conf.tar.gz"
 rm $LOCAL_DIR"pub/deb9/delivered-conf.tar.gz"
 rm $LOCAL_DIR"pub/deb10/delivered-conf.tar.gz"
 rm $LOCAL_DIR"pub/u16/delivered-conf.tar.gz"
