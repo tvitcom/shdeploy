@@ -1,12 +1,11 @@
-# deb cdrom:[Debian GNU/Linux 9.8.0 _Stretch_ - Official amd64 xfce-CD Binary-1 20190216-11:59]/ stretch main  
+# 
 
-deb http://deb.debian.org/debian/ stretch main 
-deb-src http://deb.debian.org/debian/ stretch main 
+# deb cdrom:[Debian GNU/Linux 8.11.0 _Jessie_ - Official i386 lxde-CD Binary-1 20180623-12:30]/ jessie main
 
-deb http://security.debian.org/debian-security/ stretch/updates main 
-deb-src http://security.debian.org/debian-security/ stretch/updates main 
+#deb cdrom:[Debian GNU/Linux 8.11.0 _Jessie_ - Official i386 lxde-CD Binary-1 20180623-12:30]/ jessie main
 
-# stretch-updates, previously known as 'volatile'
-deb http://deb.debian.org/debian/ stretch-updates main 
-deb-src http://deb.debian.org/debian/ stretch-updates main 
+deb http://httpredir.debian.org/debian/ jessie main
+deb-src http://httpredir.debian.org/debian/ jessie main
 
+deb http://security.debian.org/ jessie/updates main
+deb-src http://security.debian.org/ jessie/updates main
