@@ -58,11 +58,11 @@ cp ~/delivered-conf/sshd_config /etc/ssh/
 chmod 644 /etc/ssh/sshd_config
 
 if ! [ -d /root/.ssh ];then
-	mkdir -m 600 /root/.ssh
+	mkdir -m 700 /root/.ssh
 fi
 
 if ! [ -d /home/$REGULAR_USER/.ssh ];then
-	mkdir -m 600 /home/$REGULAR_USER/.ssh
+	mkdir -m 700 /home/$REGULAR_USER/.ssh
 fi
 
 if [ -f ~/.ssh/authorized_keys ];then
