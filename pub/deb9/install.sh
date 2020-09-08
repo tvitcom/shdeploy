@@ -305,8 +305,9 @@ apt-get update && apt-get install --no-install-recommends yarn
 
 ## python3
 
-apt-get update && apt-get upgrade && apt-get -y install python3-venv
-
+apt-get -y install python3-dev
+apt-get -y install python3-pip
+apt-get -y install python3-venv
 cp -f ~/delivered-conf/.pyrc /home/$REGULAR_USER
 cp -f ~/delivered-conf/.pyrc /root
 chmod 644 /home/$REGULAR_USER/.pyrc
@@ -314,7 +315,8 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 
 ## JupiterNotebook
 
-apt-get -y install python3-pip python3-dev
+echo "PATH=$PATH:/home/"$REGULAR_USER"/.local/bin" >> /home/$REGULAR_USER/.bashrc
+python3 -m pip install setuptools --upgrade
 
 ## docker and docker-compose
 
