@@ -2,7 +2,7 @@ shdeploy
 ========
 
 This application with golang simple web file-server for hosting text configuration files, bash scripts and other file for deploy linux environment for developers. Also in 'pub/deb9/' placed the preseed file for autonomous Debian9 amd64 installation with preconfigured passwords for root and mysql server. You may rename '_preseed' to 'preseed' then edit appropriate root and user passwords and use it. 
-Now it ready for Debian 9, Ubuntu 16 and Ubuntu 18 systems for amd64 compatible processors only. 
+Now it ready for Debian 9/10, Ubuntu 16/18 systems for amd64 compatible processors only. 
 
 to Debian 9 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
@@ -21,18 +21,18 @@ to Debian 9 environment with next useful packages for everyday developers need:
 
 to Debian 10 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
-- [ ] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
-- [ ] Skype
-- [ ] Git, Svn, Vim
-- [ ] Sublime-Text && Sublime-Merge - awesome tools:)
-- [ ] LAMP stack with PhpMyAdmin
-- [ ] VirtualBox additional autoinstallation with inserted iso
-- [ ] Golang 1.13 environment
-- [ ] NodeJS and NPM of nodejs 12.x version
-- [ ] Python3, pip3 and venv
-- [ ] Docker, Docker-Compose
-- [ ] Kubernetis (kubectl)
-- [ ] google cloud sdk
+- [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
+- [x] Skype
+- [x] Git, Svn, Vim
+- [x] Sublime-Text && Sublime-Merge - awesome tools:)
+- [x] LAMP stack with PhpMyAdmin
+- [x] VirtualBox additional autoinstallation with inserted iso
+- [x] Golang 1.13 environment
+- [x] NodeJS and NPM of nodejs 12.x version
+- [x] Python3, pip3 and venv
+- [x] Docker, Docker-Compose
+- [x] Kubernetis (kubectl)
+- [x] google cloud sdk
 
 Also to Ubuntu 16/18 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
