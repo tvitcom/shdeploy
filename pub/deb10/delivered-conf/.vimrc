@@ -7,9 +7,9 @@ set nowrap
 set autochdir
 set autoindent
 "Размер табуляции по умолчанию
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set smarttab
 set expandtab "преобразование таба в пробелы
 set textwidth=110
@@ -88,3 +88,4 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 "HTML snippets:
 nnoremap ,html :-1read $HOME/.vim/skeleton.html<CR>11jwf>a
 "-------------------
+
