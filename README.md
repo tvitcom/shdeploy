@@ -34,6 +34,21 @@ to Debian 10 environment with next useful packages for everyday developers need:
 - [x] Kubernetis (kubectl)
 - [x] google cloud sdk
 
+to Google Cloud instance with Debian 10 environment: 
+- [x] SSH server (default condition)
+- [x] Common: 7z, sqlite3
+- [ ] !!!No desktop software
+- [x] Git, Svn, Vim
+- [ ] !!! Absent developer tools
+- [ ] !!! Without LAMP stack
+- [ ] !!! No VirtualBoxes
+- [x] Golang 1.14.8 environment
+- [x] NodeJS and NPM of nodejs 12.x version
+- [x] Python3, pip3 and venv
+- [ ] !!! No Docker, Docker-Compose
+- [ ] !!! Kubernetis (kubectl)
+- [ ] !!! google cloud sdk
+
 Also to Ubuntu 16/18 environment with next useful packages for everyday developers need: 
 - [x] SSH server (on port 12222)
 - [x] Common: 7z, sqlite3, mysql-workbench, meld, google-chrome
