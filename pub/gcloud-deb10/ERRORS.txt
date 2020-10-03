@@ -1,0 +1,13 @@
+---Golang installation:---
+...
+
+Processing triggers for systemd (241-7~deb10u4) ...
+Processing triggers for man-db (2.8.5-2) ...
+Processing triggers for libc-bin (2.28-10) ...
+./install.sh: 220: ./install.sh: wget: not found
+tar (child): go1.14.6.linux-amd64.tar.gz: Cannot open: No such file or directory
+tar (child): Error is not recoverable: exiting now
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
+mv: cannot stat 'go': No such file or directory
+chmod: cannot access '/home/admin/go1.14.6': No such file or directory
