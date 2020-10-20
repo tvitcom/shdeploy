@@ -20,6 +20,8 @@ cd $LOCAL_DIR"pub/u16"
 tar czf delivered-conf.tar.gz delivered-conf
 cd $LOCAL_DIR"pub/u18"
 tar czf delivered-conf.tar.gz delivered-conf
+cd $LOCAL_DIR"pub/gcloud-deb10"
+tar czf delivered-conf.tar.gz delivered-conf
 
 
 rsync -e "ssh -p $REMOTE_PORT" -PLSluvr \
@@ -33,6 +35,7 @@ rm $LOCAL_DIR"pub/deb9/delivered-conf.tar.gz"
 rm $LOCAL_DIR"pub/deb10/delivered-conf.tar.gz"
 rm $LOCAL_DIR"pub/u16/delivered-conf.tar.gz"
 rm $LOCAL_DIR"pub/u18/delivered-conf.tar.gz"
+rm $LOCAL_DIR"pub/gcloud-deb10/delivered-conf.tar.gz"
 
 echo "Deployed to webserver installation host: Ok!"
 exit 100
