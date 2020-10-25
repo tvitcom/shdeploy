@@ -91,7 +91,7 @@ apt-get -y install apt-transport-https
 
 ## command developer soft
 
-apt-get -y install gcc make linux-headers-amd64
+apt-get -y install rsync gcc make linux-headers-amd64
 apt-get -y install exuberant-ctags
 apt-get -y install sqlite3 libsqlite3-dev subversion
 

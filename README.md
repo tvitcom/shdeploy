@@ -89,6 +89,8 @@ wget http://192.168.10.100:3000/deb10/install.sh && sh install.sh
 wget http://192.168.10.100:3000/u16/install.sh && sh install.sh
 ## OR for Ubuntu 18:
 wget http://192.168.10.100:3000/u18/install.sh && sh install.sh
+## OR for gcloud-deb10:
+wget http://192.168.10.100:3000/u18/install.sh && sh install.sh
 ```
 
 NOTICE: 
