@@ -9,7 +9,7 @@ read  -p ">> Input Mysql root password string: " MYSQL_PASS
 
 SET_HOSTNAME="deb10"
 REGULAR_USER="admin"
-GOLANG_VER="1.14.6"
+GOLANG_VER="1.14.8"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.43.100:3000/"
 REMOTE_DEPLOY_PATH="deb10/"
 REMOTE_CONF="delivered-conf"
