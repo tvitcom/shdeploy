@@ -56,6 +56,8 @@ apt-get -y install wget
 # sudo
 
 ## common soft
+cp /etc/sysctl.conf /etc/sysctl.conf-original
+cp -f delivered-conf/sysctl.conf /etc/sysctl.conf
 
 mv /root/.bashrc /root/.bashrc-original
 cp ~/delivered-conf/.bashrc.root /root/.bashrc
