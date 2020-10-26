@@ -134,7 +134,7 @@ apt-get install sublime-text sublime-merge
 ## google-chrom
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt-get install -y ./google-chrome-stable_current_amd64.deb
+apt-get -y install ./google-chrome-stable_current_amd64.deb
 
 ## command developer soft
 
@@ -144,9 +144,9 @@ apt-get -y install sqlite3 libsqlite3-dev subversion
 
 ## Install and configure git
 
-apt-get install -y dirmngr --install-recommends
-apt-get install -y software-properties-common
-apt-get install -y git-core git-svn tig
+apt-get -y install dirmngr --install-recommends
+apt-get -y install software-properties-common
+apt-get -y install git-core git-svn tig
 
 git config --global core.autocrlf input
 git config --global core.safecrlf false
@@ -298,7 +298,7 @@ service mysql restart
 ## nodejs
 
 # curl -sL https://deb.nodesource.com/setup_12.x | bash -
-# apt-get update && apt-get install -y nodejs npm
+# apt-get update && apt-get -y install nodejs npm
 
 # curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 # echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list

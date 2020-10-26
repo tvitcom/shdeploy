@@ -4,11 +4,12 @@
 ##
 
 read  -p ">> Input Mysql root password string: " MYSQL_PASS
+REGULAR_USER="admin"
+read  -p ">> Input regular user: " REGULAR_USER
 
 ## configuration (Shoul be in the header scripts anyway!!!)
 
 SET_HOSTNAME="deb10"
-REGULAR_USER="admin"
 GOLANG_VER="1.14.8"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.43.100:3000/"
 REMOTE_DEPLOY_PATH="deb10/"
@@ -44,7 +45,7 @@ cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get update
 apt-get -y purge bluez bluetooth
 apt-get -y purge popularity-contest
-apt-get clean && apt-get update && apt-get upgrade
+apt-get clean && apt-get update && apt-get -y upgrade
 apt-get -y install wget
 
 
@@ -100,9 +101,9 @@ apt-get -y install sqlite3 libsqlite3-dev subversion
 
 ## Install and configure git
 
-apt-get install -y dirmngr --install-recommends
-apt-get install -y software-properties-common
-apt-get install -y git-core git-svn
+apt-get -y install dirmngr --install-recommends
+apt-get -y install software-properties-common
+apt-get -y install git-core git-svn
 
 git config --global core.autocrlf input
 git config --global core.safecrlf false
@@ -248,11 +249,11 @@ chmod -R 777 "/home/"$REGULAR_USER"/go"$GOLANG_VER
 cd ~
 curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 /bin/bash nodesource_setup.sh
-apt-get update && apt-get install -y nodejs
+apt-get update && apt-get -y install nodejs
 
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-apt-get update && apt-get install -y yarn
+apt-get update && apt-get -y install yarn
 
 ## python3
 
@@ -279,7 +280,7 @@ python3 -m pip install setuptools --upgrade
 
 ## finalise
 
-apt-get -y install -f && apt-get -y autoremove && apt-get clean
+apt-get -y install -f && apt-get -y autoremove && apt-get -y clean
 . /root/.bashrc
 rm /root/$REMOTE_CONF_FILE
 rm -rf /root/$REMOTE_CONF
