@@ -267,7 +267,7 @@ chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.pyrc
 
 ## JupiterNotebook
 
-echo "PATH=$PATH:/home/"$REGULAR_USER"/.local/bin" >> /home/$REGULAR_USER/.bashrc
+#echo "PATH=$PATH:/home/"$REGULAR_USER"/.local/bin" >> /home/$REGULAR_USER/.bashrc
 python3 -m pip install setuptools --upgrade
 
 ## docker and docker-compose
