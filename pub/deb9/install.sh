@@ -196,7 +196,7 @@ vboxaddition_installed() {
 	cat /etc/group | grep vboxsf > /dev/null 2>&1
 }
 
-if [ is_vboxmounted ] && [ mountvbox ] && [ vboxaddition_installer_ready ];then
+if [ vboxaddition_installer_ready ];then
 	sh /media/cdrom0/VBox*.run
 	echo "VBoxLinuxAdditions.run succesfully start: OK!"
 fi
