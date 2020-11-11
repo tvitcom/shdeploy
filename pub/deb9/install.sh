@@ -96,13 +96,17 @@ chmod 750 /home/$REGULAR_USER
 
 ## common soft
 
+mv /home/$REGULAR_USER/.bashrc /root/.bashrc-original
+cp ~/delivered-conf/.bashrc.root /root/.bashrc
+chmod 644 /root/.bashrc
+cp -f ~/delivered-conf/.bash_aliases /root/.bash_aliases
+chmod 644 /root/.bash_aliases
 mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
 cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
 chmod 644 /home/$REGULAR_USER/.bashrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bashrc
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vimrc
-chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
 cp -f ~/delivered-conf/.vimrc /root
 chmod 766 /root/.vimrc
