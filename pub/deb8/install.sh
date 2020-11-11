@@ -80,7 +80,8 @@ else
 fi
 service ssh restart
 cp -r ~/.ssh /home/$REGULAR_USER
-chmod 600 /home/$REGULAR_USER/.ssh
+chmod 700 /home/$REGULAR_USER/.ssh
+chmod 600 /home/$REGULAR_USER/.ssh/authorized_keys
 chown -R $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.ssh
 
 # ufw
