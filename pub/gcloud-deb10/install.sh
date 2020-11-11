@@ -10,7 +10,7 @@ read  -p ">> Input regular user: " REGULAR_USER
 ## configuration (Shoul be in the header scripts anyway!!!)
 
 SET_HOSTNAME="deb10"
-GOLANG_VER="1.14.8"
+GOLANG_VER="1.14.11"
 REMOTE_DEPLOY_ENDPOINT="http://192.168.43.100:3000/"
 REMOTE_DEPLOY_PATH="deb10/"
 REMOTE_CONF="delivered-conf"
