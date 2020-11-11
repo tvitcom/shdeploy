@@ -305,6 +305,7 @@ mkdir -m 777 -p /home/$REGULAR_USER/.local/share
 wget "https://dl.google.com/go/go"$GOLANG_VER".linux-amd64.tar.gz"
 tar xzf "go"$GOLANG_VER".linux-amd64.tar.gz"
 
+echo '\n' >> "/home/"$REGULAR_USER"/.bashrc"
 echo '## go exports:' >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'export GOROOT=$HOME/go'$GOLANG_VER >> "/home/"$REGULAR_USER"/.bashrc"
 echo 'export GOPATH=$HOME/Go' >> "/home/"$REGULAR_USER"/.bashrc"
