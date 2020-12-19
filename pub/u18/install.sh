@@ -24,7 +24,17 @@ fi
 
 cd /root
 
+
+## apt
+
+apt-get clean
+# mv /etc/apt/sources.list /etc/apt/sources.list-original
+# cp -f ~/delivered-conf/sources.list /etc/apt
+apt-get clean && apt-get update
+
 ## bootstrap of config
+
+apt-get -y install wget
 
 wget $REMOTE_DEPLOY_ENDPOINT$REMOTE_DEPLOY_PATH$REMOTE_CONF_FILE -O $REMOTE_CONF_FILE
 tar xzf $REMOTE_CONF_FILE
@@ -33,13 +43,6 @@ if ! [ -d ~/delivered-conf ] || ! [ -f ~/delivered-conf/ssh/id_rsa.pub ];then
     echo "The delivered-conf is not valid"
     exit 100
 fi
-
-## apt
-
-apt-get clean
-# mv /etc/apt/sources.list /etc/apt/sources.list-original
-# cp -f ~/delivered-conf/sources.list /etc/apt
-apt-get clean && apt-get update
 
 ## ssh
 
@@ -216,6 +219,7 @@ apt-get -y install memcached
 phpenmod opcache mcrypt mbstring intl
 a2enmod ssl rewrite deflate headers expires
 
+mkdir -m 777 -p /var/www
 cp /etc/hosts /etc/hosts-original
 cat ~/delivered-conf/_hosts >> /etc/hosts
 mv /var/www /var/www.original
