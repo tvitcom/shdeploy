@@ -54,9 +54,9 @@ fi
 
 if ! [ -f /etc/ssh/sshd_config-original ];then
 	mv /etc/ssh/sshd_config /etc/ssh/sshd_config-original
+	cp ~/delivered-conf/sshd_config /etc/ssh/
+	chmod 644 /etc/ssh/sshd_config
 fi
-cp ~/delivered-conf/sshd_config /etc/ssh/
-chmod 644 /etc/ssh/sshd_config
 
 if ! [ -d /root/.ssh ];then
 	mkdir -m 700 /root/.ssh
