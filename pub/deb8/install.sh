@@ -278,7 +278,6 @@ service mysql restart
 # echo '## go exports:' >> "/home/"$REGULAR_USER"/.bashrc"
 # echo 'export GOROOT=$HOME/go'$GOLANG_VER >> "/home/"$REGULAR_USER"/.bashrc"
 # echo 'export GOPATH=$HOME/Go' >> "/home/"$REGULAR_USER"/.bashrc"
-# echo 'export GOBIN=$GOROOT/bin' >> "/home/"$REGULAR_USER"/.bashrc"
 # echo 'export GOTMPDIR="/tmp"' >> "/home/"$REGULAR_USER"/.bashrc"
 # echo 'export GOARCH=amd64;' >> "/home/"$REGULAR_USER"/.bashrc"
 # echo 'export GOOS=linux;' >> "/home/"$REGULAR_USER"/.bashrc"
