@@ -5,6 +5,7 @@
 
 ## configuration
 
+SET_HOSTNAME="deb8"
 REGULAR_USER="a"
 MYSQL_PASS="L;bycs_"$(hostname)
 GOLANG_VER="1.13.9"
@@ -39,7 +40,7 @@ fi
 apt-get clean
 mv /etc/apt/sources.list /etc/apt/sources.list-original
 cp -f ~/delivered-conf/sources.list /etc/apt
-apt-get update
+
 apt-get -y purge bluez bluetooth
 apt-get -y purge popularity-contest
 apt-get clean && apt-get update && apt-get upgrade
@@ -71,6 +72,7 @@ if [ -f ~/.ssh/authorized_keys ];then
 else
 	cat ~/delivered-conf/ssh/id_rsa.pub > ~/.ssh/authorized_keys
 fi
+
 # ssh key for user
 
 if [ -f /home/$REGULAR_USER/.ssh/authorized_keys ];then
@@ -127,12 +129,12 @@ apt-get -y install meld mysql-workbench filezilla chromium
 ## sublime-text && sublime-merge
 
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
-apt-get install apt-transport-https
+apt-get -y install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 apt-get update
-apt-get install sublime-text sublime-merge
+apt-get -y install sublime-text sublime-merge
 
-## google-chrom
+## google-chrome
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get -y install ./google-chrome-stable_current_amd64.deb

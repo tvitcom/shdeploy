@@ -96,7 +96,7 @@ chmod 750 /home/$REGULAR_USER
 
 ## common soft
 
-mv /home/$REGULAR_USER/.bashrc /root/.bashrc-original
+mv /root/.bashrc /root/.bashrc-original
 cp ~/delivered-conf/.bashrc.root /root/.bashrc
 chmod 644 /root/.bashrc
 cp -f ~/delivered-conf/.bash_aliases /root/.bash_aliases
