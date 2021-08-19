@@ -27,7 +27,6 @@ cd /root
 
 ## apt
 
-apt-get clean
 # mv /etc/apt/sources.list /etc/apt/sources.list-original
 # cp -f ~/delivered-conf/sources.list /etc/apt
 apt-get clean && apt-get update
@@ -89,7 +88,7 @@ chmod 750 /home/$REGULAR_USER
 
 ## common soft
 
-apt-get -y install p7zip-full curl
+apt-get -y install p7zip-full curl make
 apt-get -y install apt-transport-https 
 
 # configs
@@ -105,10 +104,11 @@ mv /home/$REGULAR_USER/.bashrc /home/$REGULAR_USER/.bashrc-original
 cp ~/delivered-conf/.bashrc /home/$REGULAR_USER
 chmod 644 /home/$REGULAR_USER/.bashrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.bashrc
+
 cp -f ~/delivered-conf/.vimrc /home/$REGULAR_USER
 chmod 766 /home/$REGULAR_USER/.vimrc
 chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
-chown $REGULAR_USER:$REGULAR_USER /home/$REGULAR_USER/.vimrc
+
 cp -f ~/delivered-conf/.vimrc /root
 chmod 766 /root/.vimrc
 cp -rf ~/delivered-conf/.vim /root
@@ -119,7 +119,7 @@ chmod 766 /home/$REGULAR_USER/.vim
 
 apt-get -y install vim exuberant-ctags
 #apt-get -y purge smplayer lxmusic #mpv
-apt-get -y install vlc thunderbird #gparted audacity
+apt-get -y install vlc thunderbird gparted gimp
 
 ## Desktop developer soft
 
@@ -153,7 +153,7 @@ apt-get -y install sqlite3 libsqlite3-dev subversion
 
 apt-get -y install dirmngr --install-recommends
 apt-get -y install software-properties-common
-apt-get -y install git-core git-svn tig
+apt-get -y install git-core git-svn
 
 git config --global core.autocrlf input
 git config --global core.safecrlf false
