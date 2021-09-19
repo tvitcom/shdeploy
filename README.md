@@ -78,7 +78,7 @@ On the web-server deployment host with golang environment:
 ```
 Or any other appropriate web-server like apache2, nginx, etc with hosted public /pub directory as webroot condition.
 
-Using wget (*for example deploy-host with 192.168.10.100) start software deploy:
+Using wget (*for example deploy-host with your ip: 192.168.10.100) start software deploy:
 
 ```bash
 # For Debian 9:
